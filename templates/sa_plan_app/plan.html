@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main %}
+    <div class="container">
+        {% if plan_record %}
+            <h4 class="center">لیست طرح ها</h4>
+            <table dir="rtl"
+                   class="striped highlight centered responsive-table right-aligned" title="plan list">
+                <thead>
+                <tr>
+                    <th>ردیف طرح</th>
+{#                    <th>نام مجری</th>#}
+                    <th>عنوان طرح</th>
+                    <th>اعتبار طرح میلیون ریال</th>
+                    <th>تعداد پروژه طرح</th>
+                    <th>نوع طرح</th>
+                    <th>تاریخ شروع طرح</th>
+                    <th>تاریخ خاتمه طرح</th>
+                </tr>
+                </thead>
+                {% for pl in plan_record %}
+                    <tbody>
+                    <tr>
+                        <td>{{ pl.id }}</td>
+{#                        <td>{{ pl.proctor }}</td>#}
+                            <td><a href="{% url 'sa_plan_app:plan_description' pl.id %}">{{ pl.plan_index.0 }}</a></td>
+
+                        <td>{{ pl.credit }}</td>
+                        <td>{{ pl.project_quantity }}</td>
+                        <td>{{ pl.plan_index.1 }}</td>
+{#                        {% if pl.type == 2 %}#}
+{#                            <td>{{ 'غیر انتفاعی' }}</td>#}
+{#                        {% elif pl.type == 1 %}#}
+{#                            <td>{{ 'انتفاعی' }}</td>#}
+{#                        {% endif %}#}
+                        <td>{{ pl.start_date }}</td>
+                        <td>{{ pl.end_date }}</td>
+
+                    </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>NO ACCESS RECORD FOUND!</p>
+        {% endif %}
+    </div>
+{% endblock main %}

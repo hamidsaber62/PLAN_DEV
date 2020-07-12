@@ -1,0 +1,23 @@
+
+
+{% load static %}
+{% load thumbnail %}
+{% if carousel %}
+    <div class="carousel center">
+
+        <div class="col s12">
+            {% for car in carousel %}
+                {#                <a class="carousel-item" href="{{ car.link }}"><img src="{{ car.pic.url }}"#}
+{#                height="400" width="400" alt="{{ car.alt }}"></a>#}
+                {% thumbnail car.pic "250x250" crop="center" as im %}
+                    <a  class="carousel-item" href="{{ car.link }}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"
+                                                  alt=" تصویر {{ car.name }}" title="{{ car.name }}"></a>
+                {% endthumbnail %}
+
+            {% endfor %}
+
+        </div>
+    </div>
+{% else %}
+    <h3>هیچ عکسی موجود نیست</h3>
+{% endif %}

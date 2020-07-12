@@ -1,0 +1,15 @@
+
+*.zip
+*.rar
+*.pdf
+*.txt
+*.mp4
+*.idea
+learning
+media
+static
+UNUsed
+manage.py
+my_DB.sqlite3
+migrations
+__pycache__

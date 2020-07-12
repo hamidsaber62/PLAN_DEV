@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% load static %}
+{% block main %}
+    {#  striped  dir="rtl" title="لیست مجریان" centered #}
+    {#    <div class="container">#}
+    {#        <h4 class="center">لیست مجریان طرح ها</h4>#}
+    {% if proctors_record %}
+
+        <table dir="rtl" class="responsive-table blue-grey centered">
+            <thead>
+            <tr>
+                <th>ردیف</th>
+                <th>عنوان طرح</th>
+                <th>نام مجری</th>
+                <th>عنوان اداری مجری</th>
+                <th>تصویر مجری</th>
+            </tr>
+            </thead>
+            {% for pro in proctors_record %}
+                <tbody>
+                <tr>
+                    <td>{{ pro.id }}</td>
+                    <td>{{ pro.plan }}</td>
+                    <td><a href="{% url 'sa_plan_app:proctor_description' pro.id %}" class="red-text">{{ pro.name }}</a></td>
+                    <td>{{ pro.proctor_index }}</td>
+{#                    {% if pro.surname == 1 %}#}
+{#                        <td>{{ 'معاون وزیر رئیس هیات مدیره و مدیر عامل' }}</td>#}
+{#                    {% elif pro.surname == 2 %}#}
+{#                        <td>{{ 'عضو هیات مدیر' }}</td>#}
+{#                    {% elif pro.surname == 3 %}#}
+{#                        <td>{{ 'معاون فنی و بازرگانی مدیر عامل' }}</td>#}
+{#                    {% elif pro.surname == 4 %}#}
+{#                        <td>{{ 'معاون فن اوری اطلاعات مدیر عامل' }}</td>#}
+{#                    {% elif pro.surname == 5 %}#}
+{#                        <td>{{ 'معاون پشتیبانی و توسعه مدیریت مدیر عامل' }}</td>#}
+{#                    {% endif %}#}
+                    <td>
+{#                                                <img src="{{ pro.pic.url }}" class="responsive-img" width="50px" height="50px">#}
+
+                        {% thumbnail pro.pic "100x100" crop="center" as im %}
+                            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"
+                                 alt=" تصویر آقای {{ pro.name }}">
+                        {% endthumbnail %}
+                    </td>
+                </tr>
+                </tbody>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>NO ACCESS RECORD FOUND!</p>
+    {% endif %}
+    {#    </div>#}
+{% endblock main %}

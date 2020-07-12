@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% load static %}
+{% block title %}
+    <title>صفخه اصلی</title>
+{% endblock title %}
+{% block main %}
+    {{ request.user }}
+    <main>
+        <hr>
+        <hr>
+        <!--    IMAGES   CAROUSEL     -->
+        <div class="card-panel center">
+            <h3>گالری پروژه ها</h3>
+            <hr>
+            {% include 'sa_plan_app/carousel.html' %}
+        </div>
+        <!--    END    IMAGES    CAROUSEL     -->
+
+        <!--      GROUP   CARD     -->
+        <hr>
+        <hr>
+        <div class="card-panel">
+            <h3 class="center">گروه های فعال در دفتر</h3>
+            <hr>
+            {% if info_card %}
+                {% for info in info_card %}
+                    {% if info.type == 1 %}
+                        {% include 'sa_plan_app/imagecard.html' %}
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <h4 class="center red-text flow-text">هیچ گروهی برای نمایش به ثبت نرسیده است</h4>
+            {% endif %}
+        </div>
+        <hr>
+        <hr>
+        <!--  END     GROUP   CARD   -->
+
+        <!--   PROGRAM    CARD        -->
+        <div class="card-panel">
+            <h3 class="center">برنامه ها وفعالیتهای سال جاری</h3>
+            <hr>
+            {% if info_card %}
+                {% for info in info_card %}
+                    {% if info.type == 2 %}
+                        {% include 'sa_plan_app/imagecard.html' %}
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <h4 class="center red-text flow-text">هیچ اطلاعاتی برای نمایش به ثبت نرسیده است</h4>
+            {% endif %}
+        </div>
+        <!--  END    PROGRAM    CARD        -->
+        <hr>
+    </main>
+{% endblock main %}

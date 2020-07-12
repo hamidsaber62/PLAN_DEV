@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>توضیحات طرح</title>
+{% endblock title %}
+{% block main %}
+    {% if plan_des %}
+        <h4 class="center">توضیحات ضروری {{ plan_des.plan_index.0 }} </h4>
+        <table dir="rtl"
+               class="striped highlight centered responsive-table right-aligned teal " title="plan list">
+            <thead>
+            <tr>
+                <th>توضیحات</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>{{ plan_des.description }}</td>
+            </tr>
+            </tbody>
+        </table>
+    {% else %}
+        <p>NO ACCESS RECORD FOUND!</p>
+    {% endif %}
+{% endblock main %}

@@ -1,0 +1,60 @@
+{% load static %}
+{% load thumbnail %}
+<div class="row">
+    <div class="hide-on-small-only">
+        <div class="card horizontal">
+            <div class="card-image waves-effect waves-block waves-light">
+                {% thumbnail info.card_pic "400x220" crop="center" as im %}
+                    <a href="{{ info.link_card_pic }}"><img src="{{ im.url }}" width="{{ im.width }}"
+                                                            height="{{ im.height }}"
+                                                            alt=" تصویر{{ info.name }}" class="responsive-img"></a>
+                {% endthumbnail %}
+            </div>
+            <div class="card-stacked">
+                <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4 right-align">{{ info.name }}</span>
+                    <span class="right-aligned">{{ info.title }}</span>
+                    <p class="">{{ info.description | truncatechars:70 }}</p>
+                    <br>
+
+                    <p class="left"><a href="#">اطلاعات تکمیلی</a></p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {#       card horizontal#}
+    <div class="hide-on-med-and-up">
+        <div class="card small right-align">
+            <div class="card-image waves-effect waves-block waves-light">
+                {% thumbnail info.card_pic "400x220" crop="center" as im %}
+                    <a href="{{ info.link_card_pic }}"><img src="{{ im.url }}" width="{{ im.width }}"
+                                                            height="{{ im.height }}"
+                                                            alt=" تصویر{{ info.name }}" class="responsive-img"></a>
+                {% endthumbnail %}
+            </div>
+            <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4">{{ info.name }}<i
+                            class="material-icons left">more_vert</i></span>
+                {#                                    <p><a href="#">برو اینجا</a></p>#}
+            </div>
+            <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4"><i
+                            class="material-icons left">close</i>{{ info.title }}</span>
+                <p>{{ info.description|truncatechars:80 }}</p>
+                <br>
+                <ul>
+                    <li><a href="{{ info.link_card_reveal }}">اطلاعات تکمیلی</a></li>
+                    <!--                        <li><a href="#" class="red-text darken-4 accent-4">برو اینجا 2</a></li>-->
+                    <!--                        <li><a href="#" class="red-text darken-4 accent-4">برو اینجا 3</a></li>-->
+                </ul>
+            </div>
+            {#                    <div class="card-action">#}
+            {#                        <ul>#}
+            {#                            <li><a href="#">This is a link</a></li>#}
+            {#                        </ul>#}
+            {#                    </div>#}
+
+
+        </div>
+    </div>
