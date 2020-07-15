@@ -5,23 +5,10 @@ from .models import *
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from  django.contrib import messages
-
-
+from django.contrib import messages
 # from .forms import ProctorForm
 
 
-# def admin(request):
-#     return HttpResponse(request, 'admin/')
-#
-#
-
-
-# def project_description(request, pid):
-#     ctx = {'project_des': ProjectDescription.objects.get(id=pid)}
-#     return render(request, 'sa_plan_app/project_description.html', ctx)
-
-# @login_required()
 def proctor_description(request, pid):
     print('@@@@@@@@@@@@@@@@@@@@@@@@@@')
     print('@@@@@@@@@@@@@@@@@@@@@@@@@@')
@@ -35,11 +22,16 @@ def proctor_description(request, pid):
         messages.warning(request, 'برای مشاهده جزئیات باید قبلا ثبت نام و وارد سایت شده باشید')
         return HttpResponse('برای مشاهده جزئیات باید قبلا ثبت نام و وارد سایت شده باشید')
 
+# TODO if don't attachment document in The DB Error Show
+#  in plan description page
+
 
 # @login_required()
 def plan_description(request, pid):
     if request.user.is_authenticated:
-        ctx = {'plan_des': Plans.objects.get(id=pid)}
+        ctx = {'plan_des': Plan.objects.get(id=pid)}
+        ctx.update({'attachment_file': AttachmentFile.objects.get(object_id=pid)})
+        # ctx.update({'prj': Project.objects.get(Plans.name)})
         return render(request, 'sa_plan_app/plan_description.html', ctx)
     else:
         messages.warning(request, 'برای مشاهده جزئیات باید قبلا ثبت نام و وارد سایت شده باشید')
@@ -49,28 +41,25 @@ def plan_description(request, pid):
 # @login_required()
 def plan(request):
     if request.user.is_authenticated:
-        ctx = {'plan_record': Plans.objects.order_by('entry_datetime')}
+        ctx = {'plan_record': Plan.objects.order_by('entry_datetime')}
+        ctx.update({'proctor': Proctor.objects.order_by('plan')})
         return render(request, 'sa_plan_app/plan.html', ctx)
     else:
         messages.warning(request, 'برای مشاهده جزئیات باید قبلا ثبت نام و وارد سایت شده باشید')
         messages.error(request, 'برای مشاهده جزئیات باید قبلا ثبت نام و وارد سایت شده باشید')
         messages.success(request, 'برای مشاهده جزئیات باید قبلا ثبت نام و وارد سایت شده باشید')
-        # return HttpResponse('<div style="color:red; float: right"><h1>ERROR LOGIN</h></div>')
-       # خط فوق به کاربری که لاگین نکره فقط یک پیغام میدهد و خط پایین همین کابر را به صفحه ای که مشخص کردیم می برد
-       #  messages.add_message(request, messages.warning, 'برای مشاهده جزئیات باید قبلا ثبت نام و وارد سایت شده باشید')
         return HttpResponseRedirect(reverse('sa_plan_app:index'))
 
 
 def index(request):
     ctx = {'info_card': InfoCard.objects.all()}
-    print('---->>>', ctx)
     ctx.update({'carousel': ImageGallery.objects.all()})
     return render(request, 'sa_plan_app/index.html', ctx)
 
 
 @login_required()
 def project(request):
-    ctx = {'project_record': Projects.objects.all()}
+    ctx = {'project_record': Project.objects.all()}
     return render(request, 'sa_plan_app/project.html', ctx)
 
 
@@ -91,3 +80,13 @@ def proctors(request):
 #     else:
 #         form = ProctorForm()
 #         return render(request, 'sa_plan_app/proctors.html', {'proctorform': form})
+
+# def admin(request):
+#     return HttpResponse(request, 'admin/')
+
+
+# def project_description(request, pid):
+#     ctx = {'project_des': ProjectDescription.objects.get(id=pid)}
+#     return render(request, 'sa_plan_app/project_description.html', ctx)
+
+# @login_required()

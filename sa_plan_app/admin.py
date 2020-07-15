@@ -31,8 +31,8 @@ class ImageGalleryAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Plans)
-class PlansAdmin(admin.ModelAdmin):
+@admin.register(Plan)
+class PlanAdmin(admin.ModelAdmin):
     pass
     # list_display = ('name', 'organization', 'beneficiary')
     # list_filter = ('name', 'proctor', 'entry_datetime')
@@ -62,8 +62,8 @@ class PlansAdmin(admin.ModelAdmin):
 #
 
 
-@admin.register(Projects)
-class ProjectsAdmin(admin.ModelAdmin):
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
     list_display = ('name', 'number')
 
 
@@ -85,8 +85,8 @@ class InfoCardAdmin(admin.ModelAdmin):
 #     pass
 
 
-@admin.register(AttachmentFiles)
-class AttachmentFilesAdmin(admin.ModelAdmin):
+@admin.register(AttachmentFile)
+class AttachmentFileAdmin(admin.ModelAdmin):
     pass
 
 

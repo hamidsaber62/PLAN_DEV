@@ -4,27 +4,28 @@
 {% load static %}
 {% block main %}
     <div class="container">
-        <div class="section">
-            <div class="row">
-                <div class="col m6 offset-m3">
-                    <div class="card-panel">
-                        <h2 class="">Login To Site :</h2>
-                        <form method="post">
-                            {% csrf_token %}
-                            {{ form.as_p }}
-                            <div class="center">
-                                <button class="btn waves-effect waves-light" type="submit" style="width: 200px">login</button>
-
-                            </div>
-                        </form>
-                        <br>
-                        <div class="center">
-                            <a class="btn teal waves-effect " href="{% url 'social:begin' 'github' %}" style="width: 200px">sign in
-                                with GitHub</a>
-                            <a class="btn teal waves-effect waves-light" href="{% url 'social:begin' 'google-oauth2' %}" style="width: 200px">sign
-                                in with Google</a>
+        <div class="section row">
+            <div class="col s12">
+                <div class="card-panel small">
+                    <h2 class="flow-text">Login To Site :</h2>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="right">
+                            <button class="btn waves-effect waves-light flow-text center" type="submit">login</button>
                         </div>
                         <br>
+                        <br>
+                    </form>
+                    <hr>
+                    <br>
+                    <br>
+                    <div class="center">
+                        <a class="btn teal waves-effect flow-text" href="{% url 'social:begin' 'github' %}">sign in
+                            with GitHub</a>
+
+                        <a class="btn teal waves-effect flow-text" href="{% url 'social:begin' 'google-oauth2' %}">sign
+                            in with Google</a>
                     </div>
                 </div>
             </div>

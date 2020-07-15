@@ -1,21 +1,45 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-<title>توضیحات طرح</title>
+    <title>جزییات طرح</title>
 {% endblock title %}
 {% block main %}
     {% if plan_des %}
         <h4 class="center">توضیحات ضروری {{ plan_des.plan_index.0 }} </h4>
+        <h6 class="center">AAA--->>>{{ plan_des.plan_index.1 }}</h6>
+        <h6 class="center"> تعداد پروژه ها {{ plan_des.project_quantity }}</h6>
+        <h6 class="center">اعتبار طرح به میلیون ریال {{ plan_des.credit }}</h6>
+        <h6 class="center">{{ plan_des }}</h6>
+        {% if attachment_file %}
+            <h6 class="center">"فایل ضمیمه : " {{ attachment_file.object_name }}</h6>
+            <h6 class="center"> object_id {{ attachment_file.object_id }}</h6>
+            <h6 class="center"> content_type {{ attachment_file.content_type }}</h6>
+            <h6 class="center"> file {{ attachment_file.file }}</h6>
+            <h6 class="center"> content_object {{ attachment_file.content_object }}</h6>
+        {% else %}
+            <h6 class="center">فایلی ضمیمه نشده است</h6>
+        {% endif %}
+        <h6 class="center">"عنوان پروژه : " {{ prj.name }}</h6>
+        <h6 class="center">"عنوان پروژه : " {{ prj.name }}</h6>
+        <h6 class="center">"عنوان پروژه : " {{ prj.name }}</h6>
+        <h6 class="center">"عنوان پروژه : " {{ prj.name }}</h6>
         <table dir="rtl"
                class="striped highlight centered responsive-table right-aligned teal " title="plan list">
             <thead>
             <tr>
+                <th>عنوان طرح</th>
+                <th>شرح طرح</th>
+                <th>تعداد پروژه ها</th>
+                <th>توضیحات</th>
                 <th>توضیحات</th>
             </tr>
             </thead>
 
             <tbody>
             <tr>
+                <td>{{ plan_des.plan_index.0 }}</td>
+                <td>{{ plan_des.description }}</td>
+                <td>{{ plan_des.description }}</td>
                 <td>{{ plan_des.description }}</td>
             </tr>
             </tbody>
@@ -23,4 +47,36 @@
     {% else %}
         <p>NO ACCESS RECORD FOUND!</p>
     {% endif %}
+
+    <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
+        <li class="tab disabled"><a href="#tab4">فعالیتها</a></li>
+        <li class="tab"><a href="#tab3" class="active">جزییات زیر پروژه ها</a></li>
+        <li class="tab"><a href="#tab2">جزییات پروژه ها</a></li>
+        <li class="tab"><a href="#tab1">شرح طرح</a></li>
+    </ul>
+    <div id="tab1" class="col s12"><p>طرح</p>
+        {% if plan_des %}
+            <h4 class="center">توضیحات ضروری {{ plan_des.plan_index.0 }} </h4>
+            <table dir="rtl"
+                   class="striped highlight centered responsive-table right-aligned teal " title="plan list">
+                <thead>
+                <tr>
+                    <th>توضیحات</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td>{{ plan_des.description }}</td>
+                </tr>
+                </tbody>
+            </table>
+        {% else %}
+            <p>NO ACCESS RECORD FOUND!</p>
+        {% endif %}
+
+    </div>
+    <div id="tab2" class="col s12"><h3 class="blue-text center">جزییات پروژه ها</h3></div>
+    <div id="tab3" class="col s12"><h3 class="teal-text center">جزییات زیر پروژه ها</h3></div>
+    <div id="tab4" class="col s12"><h3 class="red-text center">فعالیتها</h3></div>
 {% endblock main %}

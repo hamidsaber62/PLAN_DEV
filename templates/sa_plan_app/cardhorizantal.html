@@ -41,7 +41,7 @@
             <div class="card-reveal">
                     <span class="card-title grey-text text-darken-4"><i
                             class="material-icons left">close</i>{{ info.title }}</span>
-                <p>{{ info.description|truncatechars:80 }}</p>
+                <p>{{ info.card_content|truncatechars:'80'  }}</p>
                 <br>
                 <ul>
                     <li><a href="{{ info.link_card_reveal }}">اطلاعات تکمیلی</a></li>
