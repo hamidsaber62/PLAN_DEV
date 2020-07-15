@@ -32,7 +32,7 @@ class UserProfile(models.Model):
         rol = dict(ROLE_CHOICES)[self.role]
         location = dict(LOCATION_JOB)[self.location_job]
         return rol, location
-    nam = profile
+
     # TODO complete setter for role AND location job
     # @role.setter
     # def profile(self):
@@ -41,7 +41,8 @@ class UserProfile(models.Model):
     #     return rol, location
 
     def __str__(self):  # __unicode__ for Python 2
-        return "{0} _{1} __{2}".format(self.user.username, self.nam[0], self.nam[1])
+        # return "{0} _{1} __{2}___{3}".format(self.user.username, self.profile[0], self.profile[1], self.phone)
+        return " نام کاربری :--->{0} حوزه اشتغال و وظیفه :---> {1} تلفن :---> {2} ".format(self.user.username, self.profile[0:2], self.phone)
 
 
 @receiver(post_save, sender=User)
