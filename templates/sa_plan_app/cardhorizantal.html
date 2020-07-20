@@ -14,7 +14,7 @@
                 <div class="card-content">
                     <span class="card-title activator grey-text text-darken-4 right-align">{{ info.name }}</span>
                     <span class="right-aligned">{{ info.title }}</span>
-                    <p class="">{{ info.description | truncatechars:70 }}</p>
+                    <p class="">{{ info.card_content | truncatechars:50 }}</p>
                     <br>
 
                     <p class="left"><a href="#">اطلاعات تکمیلی</a></p>
@@ -41,7 +41,7 @@
             <div class="card-reveal">
                     <span class="card-title grey-text text-darken-4"><i
                             class="material-icons left">close</i>{{ info.title }}</span>
-                <p>{{ info.card_content|truncatechars:'80'  }}</p>
+                <p>{{ info.card_content | truncatechars:10 }}</p>
                 <br>
                 <ul>
                     <li><a href="{{ info.link_card_reveal }}">اطلاعات تکمیلی</a></li>
@@ -58,3 +58,4 @@
 
         </div>
     </div>
+</div>

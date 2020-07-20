@@ -4,6 +4,11 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+# for shell
+#     from django.contrib.auth.models import User
+#     from sa_account_app.models import UserProfile
+#     user=User.objects.get(username='admin')
+#     prof=UserProfile.objects.get(user=user)
 
 ROLE_CHOICES = (
     (1, 'فقط مشاهده'),
@@ -28,21 +33,31 @@ class UserProfile(models.Model):
     phone = models.CharField(max_length=15, null=True, blank=True)
 
     @property
-    def profile(self):
-        rol = dict(ROLE_CHOICES)[self.role]
-        location = dict(LOCATION_JOB)[self.location_job]
-        return rol, location
+    def user_role(self):
+        # import ipdb; ipdb.set_trace()
+        user_role = dict(ROLE_CHOICES)[self.role]
+        return user_role
+
+    @property
+    def user_location(self):
+        # import ipdb; ipdb.set_trace()
+        user_location = dict(LOCATION_JOB)[self.location_job]
+        return user_location
 
     # TODO complete setter for role AND location job
-    # @role.setter
-    # def profile(self):
-    #     rol = dict(ROLE_CHOICES)[self.role]
-    #     location = dict(LOCATION_JOB)[self.location_job]
-    #     return rol, location
+
+    @user_role.setter
+    def user_role(self, new_role):
+        revers_role_dict = {v: k for k, v in dict(ROLE_CHOICES).items()}
+        self.role = revers_role_dict.get(new_role)
+
+    @user_location.setter
+    def user_location(self, new_location):
+        revers_location_dict = {v: k for k, v in dict(LOCATION_JOB).items()}
+        self.location_job = revers_location_dict.get(new_location)
 
     def __str__(self):  # __unicode__ for Python 2
-        # return "{0} _{1} __{2}___{3}".format(self.user.username, self.profile[0], self.profile[1], self.phone)
-        return " نام کاربری :--->{0} حوزه اشتغال و وظیفه :---> {1} تلفن :---> {2} ".format(self.user.username, self.profile[0:2], self.phone)
+        return "{0} _{1} __{2}___{3}".format(self.user.username, self.role, self.location_job, self.phone)
 
 
 @receiver(post_save, sender=User)

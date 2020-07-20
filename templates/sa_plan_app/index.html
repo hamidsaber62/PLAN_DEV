@@ -25,12 +25,12 @@
             <hr>
             {% if info_card %}
                 {% for info in info_card %}
-                    {% if info.type == 1 %}
+                    {% if info.card_type == 1 %}
                         {% include 'sa_plan_app/cardhorizantal.html' %}
-                    {% endif %}
+                {% endif %}
                 {% endfor %}
             {% else %}
-                <h4 class="center red-text flow-text">هیچ گروهی برای نمایش به ثبت نرسیده است</h4>
+                <h4 class="center red-text flow-text">هیچ اطلاعاتی برای نمایش به ثبت نرسیده است</h4>
             {% endif %}
         </div>
         <hr>
@@ -43,7 +43,7 @@
             <hr>
             {% if info_card %}
                 {% for info in info_card %}
-                    {% if info.type == 2 %}
+                    {% if info.card_type == 2 %}
                         {% include 'sa_plan_app/cardhorizantal.html' %}
                     {% endif %}
                 {% endfor %}

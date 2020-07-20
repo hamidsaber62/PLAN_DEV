@@ -12,15 +12,15 @@ from django.contrib.contenttypes.models import ContentType
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@           PROCTOR_SURNAME
-PROCTOR_SURNAME = (
+PROCTOR_SURNAME = [
     (1, 'معاون وزیر رئیس هیات مدیره و مدیر عامل'),
     (2, 'عضو هیات مدیر'),
     (3, 'معاون فنی و بازرگانی مدیر عامل'),
     (4, 'معاون فن اوری اطلاعات مدیر عامل'),
     (5, 'معاون پشتیبانی و توسعه مدیریت مدیر عامل'),
-)
+]
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@           CARD_TYPE
-CARD_TYPE = (
+CARD_TYPE = [
     (1, 'گروه های فعال در دفتر'),
     (2, 'برنامه ها و فعالیتهای سال جاری'),
     (3, 'مشخصات و سوابق فردی فردی مجری'),
@@ -28,28 +28,29 @@ CARD_TYPE = (
     (5, 'توضیحات پروژه'),
     (6, 'توضیحات زیر پروژه'),
     (7, 'توضیحات فعالیت مربوط به'),
-)
+]
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@           PLAN
 
-#   TODO: for PLAN_NAME create model AND form when insert final data
-PLAN_NAME = (
+#   TODO: for PLAN_NAME create model AND UI_form when insert final data
+PLAN_NAME = [
     (1, 'طرح توسعه زیر ساخت'),
     (2, 'طرح کد پستی'),
     (3, 'طرح مقاوم سازی'),
     (4, 'طرح خدمات اجباری روستایی'),
     (5, 'طرح فن آوری'),
-)
-PLAN_TYPE = (
+]
+PLAN_TYPE = [
     (1, 'انتفاعی'),
     (2, 'غیر انتفاعی'),
-)
+]
 
-ORGANIZATION = (
+
+ORGANIZATION = [
     (1, 'وزارت ارتباطات و فن آوری اطلاعات'),
-)
-BENEFICIARY = (
+]
+BENEFICIARY = [
     (1, 'شرکت ملی پست'),
-)
+]
 
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -58,12 +59,14 @@ BENEFICIARY = (
 def picture_path(instance, filename):
     print('instance.name -->>', instance.name, 'filename -->>', filename)
     return "{0}{1}".format(instance.name, filename)
+
+
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
 class InfoCard(models.Model):
-    type = models.PositiveSmallIntegerField('نوع کارت', choices=CARD_TYPE,
-                                            null=True)
+    card_type = models.PositiveSmallIntegerField('نوع کارت', choices=CARD_TYPE,
+                                                  null=True)
     name = models.CharField('عنوان کارت', max_length=150, null=True)
     title = models.CharField('عنوان بازشو کارت', max_length=150, null=True)
     card_content = models.TextField('مطالب کارت', null=True)
@@ -89,8 +92,19 @@ class InfoCard(models.Model):
     link_action3 = models.CharField('لینک سوم', max_length=100, blank=True,
                                     null=True)
 
+    @property
+    def type_card(self):
+        type_card = dict(CARD_TYPE)[self.card_type]
+        return type_card
+
+    @type_card.setter
+    def type_card(self, new_type):
+        revers_dict = {v: k for k, v in dict(CARD_TYPE).items()}
+        self.card_type = revers_dict.get(new_type)
+
     def __str__(self):
-        return "{}".format(self.name)
+        return "{1}-->> {0}-->>{2}".format(self.name, self.card_type, self.card_type)
+
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -103,9 +117,15 @@ class AttachmentFile(models.Model):
     object_name = models.CharField(max_length=155, null=True, blank=True)
     content_object = GenericForeignKey()
 
+    @property
+    def attachment(self, pid):
+        attachment = AttachmentFile.objects.filter(object_id=pid)
+        return attachment
+
     def __str__(self):
         # return "مستندات {}".format(self.content_object.name)
         return "مستندات {}".format(self.object_name)
+
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -123,6 +143,7 @@ class ImageGallery(models.Model):
 
     def __str__(self):
         return self.name
+
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -152,26 +173,26 @@ class Project(models.Model):
 
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#   TODO: for PLAN_NAME create model AND form when insert final data
+#   TODO: for dict PLAN_NAME create model AND UI_form when insert final data
 
 class Plan(models.Model):
     objects = None
     plan = 'طرح'
-    name = models.PositiveSmallIntegerField('عنوان طرح', choices=PLAN_NAME,
+    plan_name = models.PositiveSmallIntegerField('عنوان طرح', choices=PLAN_NAME,
                                             help_text='یکی از عناوین از پیش درج شده را انتخاب و ثبت نمایید',
                                             unique=True, blank=True, null=True)
-    organization = models.PositiveSmallIntegerField('عنوان دستگاه اجرایی',
+    plan_organization = models.PositiveSmallIntegerField('عنوان دستگاه اجرایی',
                                                     choices=ORGANIZATION,
                                                     blank=True, null=True)
     number = models.CharField('شماره طرح', max_length=255, unique=True,
                               blank=True, null=True)
-    beneficiary = models.PositiveSmallIntegerField('عنوان دستگاه بهره بردار',
+    plan_beneficiary = models.PositiveSmallIntegerField('عنوان دستگاه بهره بردار',
                                                    choices=BENEFICIARY,
                                                    blank=True,
                                                    null=True)
     beneficiary_code = models.CharField('شماره دستگاه بهره بردار',
                                         max_length=15, blank=True, null=True)
-    type = models.PositiveSmallIntegerField('نوع طرح', choices=PLAN_TYPE,
+    plan_type = models.PositiveSmallIntegerField('نوع طرح', choices=PLAN_TYPE,
                                             blank=True, null=True)
     project_quantity = models.IntegerField('تعداد پروژه ها', blank=True,
                                            null=True)
@@ -186,15 +207,44 @@ class Plan(models.Model):
     attachment_file = GenericRelation('AttachmentFile', null=True)
 
     @property
-    def plan_index(self):
-        p_nam = dict(PLAN_NAME)[self.name]
-        typ = dict(PLAN_TYPE)[self.type]
-        return p_nam, typ
-    nam = plan_index
+    def name_plan(self):
+        name_plan = dict(PLAN_NAME)[self.plan_name]
+        return name_plan
+
+    @property
+    def organization(self):
+        organization = dict(ORGANIZATION)[self.plan_organization]
+        return organization
+
+    @property
+    def beneficiary(self):
+        beneficiary = dict(BENEFICIARY)[self.plan_beneficiary]
+        return beneficiary
+
+    @property
+    def type_plan(self):
+        type_plan = dict(PLAN_TYPE)[self.plan_type]
+        return type_plan
+
+    @name_plan.setter
+    def name_plan(self, new_plan_name):
+        revers_plan_name_dict = {v: k for k, v in dict(PLAN_NAME).items()}
+        self.plan_name = revers_plan_name_dict.get(new_plan_name)
+    @organization.setter
+    def organization(self, new_organization):
+        revers_organization_dict = {v: k for k, v in dict(ORGANIZATION).items()}
+        self.plan_organization = revers_organization_dict.get(new_organization)
+    @beneficiary.setter
+    def beneficiary(self, new_beneficiary):
+        revers_beneficiary_dict = {v: k for k, v in dict(BENEFICIARY).items()}
+        self.plan_beneficiary = revers_beneficiary_dict.get(new_beneficiary)
+    @type_plan.setter
+    def type_plan(self, new_type_plan):
+        revers_type_plan_dict = {v: k for k, v in dict(PLAN_TYPE).items()}
+        self.plan_type = revers_type_plan_dict.get(new_type_plan)
 
     def __str__(self):
-        # return "{0}".format(self.plan_index[0])
-        return "{0}".format(self.nam[0])
+        return "{0}".format(self.name_plan)
 
     # plan_file = models.FileField('مستندات', upload_to='plan_file/%Y_%m%d_%H%M', blank=True, null=True)
 
@@ -232,9 +282,14 @@ class Proctor(models.Model):
 
     # position = models.CharField('سمت اداری مجری', max_length=255, null=True, blank=True)
     @property
-    def proctor_index(self):
-        surname = dict(PROCTOR_SURNAME)[self.surname]
-        return surname
+    def proctor_surname(self):
+        proctor_surname = dict(PROCTOR_SURNAME)[self.surname]
+        return proctor_surname
+
+    @proctor_surname.setter
+    def proctor_surname(self, new_surname):
+        revers_surname_dict = {v: k for k, v in dict(PROCTOR_SURNAME).items()}
+        self.surname = revers_surname_dict.get(new_surname)
 
     def __str__(self):
         return "مجری {}".format(self.name)

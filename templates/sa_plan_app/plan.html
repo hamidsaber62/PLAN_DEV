@@ -22,18 +22,18 @@
                     <tbody>
                     <tr>
                         <td>{{ pl.id }}</td>
-                        {% for pr in proctor %}
-                            {% if pl.id == pr.plan.id %}
+                        {% for proc in proctor %}
+                            {% if pl.id == proc.plan.id %}
 
-                                <td><a href="{% url 'sa_plan_app:proctor_description' pr.id %}">{{ pr.name }}</a></td>
+                                <td><a href="{% url 'sa_plan_app:proctor_description' proc.id %}">{{ proc.name }}</a></td>
 
                                          {% endif %}
                         {% endfor %}
-                        <td><a href="{% url 'sa_plan_app:plan_description' pl.id %}">{{ pl.plan_index.0 }}</a></td>
+                        <td><a href="{% url 'sa_plan_app:plan_description' pl.id %}">{{ pl.name_plan}}</a></td>
 
                         <td>{{ pl.credit }}</td>
                         <td>{{ pl.project_quantity }}</td>
-                        <td>{{ pl.plan_index.1 }}</td>
+                        <td>{{ pl.type_plan }}</td>
                         {#                        {% if pl.type == 2 %}#}
                         {#                            <td>{{ 'غیر انتفاعی' }}</td>#}
                         {#                        {% elif pl.type == 1 %}#}

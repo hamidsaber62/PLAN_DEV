@@ -30,8 +30,10 @@ def proctor_description(request, pid):
 def plan_description(request, pid):
     if request.user.is_authenticated:
         ctx = {'plan_des': Plan.objects.get(id=pid)}
-        ctx.update({'attachment_file': AttachmentFile.objects.get(object_id=pid)})
-        # ctx.update({'prj': Project.objects.get(Plans.name)})
+        cont = dict({'attachment_file': AttachmentFile.objects.filter(content_type__attachmentfile__object_id=pid)})
+        # TODO: When model's  dose not attachment_file plan_description or other page show Error message
+        ctx.update(cont)
+        ctx.update({'project_plan': Project.objects.filter(plan=Plan.objects.get(id=pid))})
         return render(request, 'sa_plan_app/plan_description.html', ctx)
     else:
         messages.warning(request, 'برای مشاهده جزئیات باید قبلا ثبت نام و وارد سایت شده باشید')
@@ -53,6 +55,8 @@ def plan(request):
 
 def index(request):
     ctx = {'info_card': InfoCard.objects.all()}
+    # ctx = {'group_card': InfoCard.objects.filter(_card_type=1)}
+    # ctx.update({'prg_card': InfoCard.objects.filter(_card_type=2)})
     ctx.update({'carousel': ImageGallery.objects.all()})
     return render(request, 'sa_plan_app/index.html', ctx)
 
