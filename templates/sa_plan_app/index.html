@@ -5,7 +5,7 @@
     <title>صفخه اصلی</title>
 {% endblock title %}
 {% block main %}
-    {{ request.user }}
+
     <main>
         <hr>
         <hr>
@@ -13,9 +13,10 @@
         <div class="card-panel center">
             <h3>گالری پروژه ها</h3>
             <hr>
-            {% include 'sa_plan_app/carousel.html' %}
+            {% include 'sa_plan_app/slidimages.html' %}
         </div>
         <!--    END    IMAGES    CAROUSEL     -->
+{% if request.user.is_authenticated %}
 
         <!--      GROUP   CARD     -->
         <hr>
@@ -52,6 +53,7 @@
             {% endif %}
         </div>
         <!--  END    PROGRAM    CARD        -->
+    {% endif %}
         <hr>
     </main>
 {% endblock main %}

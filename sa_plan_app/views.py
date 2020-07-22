@@ -55,9 +55,7 @@ def plan(request):
 
 def index(request):
     ctx = {'info_card': InfoCard.objects.all()}
-    # ctx = {'group_card': InfoCard.objects.filter(_card_type=1)}
-    # ctx.update({'prg_card': InfoCard.objects.filter(_card_type=2)})
-    ctx.update({'carousel': ImageGallery.objects.all()})
+    ctx.update({'images': ImageGallery.objects.all()})
     return render(request, 'sa_plan_app/index.html', ctx)
 
 

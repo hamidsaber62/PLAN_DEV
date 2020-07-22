@@ -1,50 +1,83 @@
+
+
 {% load static %}
-
 <header>
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <div class="modal-content right-align">
+            <h4>بخش ویژه مدیریتی، نظارتی و کارشناسی</h4>
+            <h6>:در صورتیکه کاربری فعال دارید وارد سایت شوید واگر ندارید</h6>
+            <p class="center-align">برای ملاحظه این قسمت ثبت نام و سپس از طریق ایمیلی که مدیر سایت ارسال مینماید اعتبار کاربری خود را فعال نمایید </p>
+            <p class="left-align">باتشکر</p>
+        </div>
+        <div class="modal-footer">
+            <a href="{% url 'sa_plan_app:index' %}" class="modal-close waves-effect waves-green btn-flat blue-text">فقط میشه عکس دید</a>
+            <a href="{% url 'login' %}" class="modal-close waves-effect waves-green btn-flat blue-text">برو برای ثبت نام</a>
+        </div>
+    </div>
+    <!--    END     ~~~~~~~~~~~~~~~~     Modal Structure    ~~~~~~~~~~~~~~~~~~~~~ -->
 
-    <!--    START    Dropdown Structure   side BAR DROPDOWN   -->
+    <!--    START   !!!!!!!!!!!!!!!!  VIP   Dropdown Structure   BASE PAGE DROPDOWN    !!!!!!!!!!!!!!!!!!!!! -->
     <ul id="dropdown1" class="dropdown-content">
-        <li><a href="#">ثبت طرح ها</a></li>
-        <li><a href="#">ثبت پروژه ها</a></li>
-        <li><a href="#">ثبت زیر پروژه ها</a></li>
-        <li><a href="#">ثبت فعالیت ها</a></li>
-        <li><a href="#">صدور احکام</a></li>
+        <li><a href="#">ثبت طرح</a></li>
+        <li><a href="#">ثبت پروژه</a></li>
+        <li><a href="#">ثبت زیر پروژه</a></li>
+        <li><a href="#">ثبت فعالیت</a></li>
+        <li><a href="#">صدور حکم</a></li>
         <li class="divider"></li>
-        <li><a href="{% url 'sa_plan_app:index' %}">خروج و بازگشت به صفحه اصلی</a></li>
+        <li><a href="{% url 'sa_plan_app:index' %}">خروج صفحه اصلی</a></li>
     </ul>
-
+    {#      END     ~~~~~~~~~~    VIP  DROPDOWN   BASE PAGE DROPDOWN   ~~~~~~~~~~~~~~ #}
+    <!--    START   !!!!!!!!!!!!!!!!     SHOW  DROPDOWN   BASE PAGE DROPDOWN    !!!!!!!!!!!!!!!!!!!!! -->
     <ul id="dropdown2" class="dropdown-content">
-        <li class="teal"><a href="{% url 'sa_plan_app:plan' %}">مشاهده طرح ها</a></li>
-        <li><a href="{% url 'sa_plan_app:project' %}">مشاهده پروژه ها</a></li>
-        <li><a href="#">مشاهده زیر پروژه ها</a></li>
-        <li><a href="#">مشاهده فعالیت ها</a></li>
-        <li><a href="{% url 'sa_plan_app:proctors' %}">مشاهده مجریان</a></li>
-        <li><a href="#">مشاهده احکام</a></li>
+        <li class="teal"><a href="{% url 'sa_plan_app:plan' %}">طرح های ثبت شده</a></li>
+        <li><a href="{% url 'sa_plan_app:project' %}">پروژه ها</a></li>
+        <li><a href="#">زیر پروژه ها</a></li>
+        <li><a href="#">فعالیت ها</a></li>
+        <li><a href="{% url 'sa_plan_app:proctors' %}">مجریان</a></li>
+        <li><a href="#">احکام صادره</a></li>
         <li class="divider"></li>
-        <li><a href="{% url 'sa_plan_app:index' %}">خروج و بازگشت به صفحه اصلی</a></li>
+        <li><a href="{% url 'sa_plan_app:index' %}">خروج و صفحه اصلی</a></li>
     </ul>
+    {#  END    ~~~~~~~~~~    SHOW  DROPDOWN   BASE PAGE DROPDOWN   ~~~~~~~~~~~~~~ #}
 
-    <!--    END      Dropdown Structure  side BAR DROPDOWN  -->
 
-    <!--    START    BASE    NAV BAR     -->
+    <!--   START    !!!!!!!!!!!!!!!!     BASE  MENU  NAV BAR    !!!!!!!!!!!!!!!!!!!!! -->
     <div class="navbar-fixed">
         <nav class="sa_nav1">
             <div class="nav-wrapper">
 
-                <!--    START        BASE MENU    -->
+                <!--    START BASE  MENU  !!!!!!!!!!!!!!!!     BASE MENU   !!!!!!!!!!!!!!!! -->
                 <ul class="hide-on-med-and-down right">
-                    <!-- Dropdown Trigger 1 VIP -->
-                    <li class=""><a class="dropdown-trigger orange-text" href="#" data-target="dropdown1">بخش ویژه<i
-                            class="material-icons right">arrow_drop_down</i></a>
+                    <!-- BASE  MENU   VIP  Dropdown Trigger 1  -->
+                    {% if request.user.is_authenticated %}
+                        <li><a class="dropdown-trigger black-text" href="#" data-target="dropdown1">بخش ویژه<i
+                                class="material-icons right">arrow_drop_down</i></a>
+                        </li>
+                        <!-- BASE  MENU  observation   Dropdown Trigger 3  -->
+                        <li><a class="dropdown-trigger black-text" href="#" data-target="dropdown2">مشاهدات<i
+                                class="material-icons right">arrow_drop_down</i><i
+                                class="material-icons left">visibility</i></a>
+                        </li>
+                    <li><a href="{% url 'logout' %}" class="black-text"><i class="material-icons left">arrow_back</i>خروج</a>
                     </li>
-                    <!-- Dropdown Trigger 3 observation -->
-                    <li><a class="dropdown-trigger orange-text" href="#" data-target="dropdown2">مشاهدات<i
-                            class="material-icons right">arrow_drop_down</i><i class="material-icons left">visibility</i></a>
+                    <li><a href="#" class="black-text"><i class="material-icons left">person</i>{{ request.user }}سلام</a>
                     </li>
-                    <li><a href="{% url 'logout' %}" class="orange-text"><i class="material-icons left">arrow_back</i>خروج</a></li>
+                    <li><a href="{% url 'sa_plan_app:index' %}" class="orange-text">خانه<i class="material-icons right">home</i></a>
+                    </li>
+                    {% else %}
+                        {#                     <!-- BASE  MENU  VIP   MODAL Trigger  -->#}
+                        <li><a class="waves-effect waves-light modal-trigger" href="#modal1">بخش ویژه<i
+                                class="material-icons right">arrow_drop_down</i></a>
+                        </li>
+                        <li><a class="waves-effect waves-light modal-trigger" href="#modal1">مشاهدات<i
+                                class="material-icons right">arrow_drop_down</i><i
+                                class="material-icons left">visibility</i></a>
+                        </li>
+                    <li><a href="{% url 'login' %}" class="">ثبت نام / ورود<i class="material-icons right">person_add</i></a>
+                    </li>
+                    {% endif %}
 
-                    <li><a href="{% url 'login' %}" class="orange-text">ثبت نام / ورود<i class="material-icons right">person_add</i></a></li>
-                    <li><a href="{% url 'sa_plan_app:index' %}" class="orange-text">خانه<i class="material-icons right">home</i></a></li>
                 </ul>
                 <!--    END        BASE MENU    -->
 
@@ -64,44 +97,51 @@
         </nav>
 
     </div>
-    <!--    END     BASE    NAV BAR     -->
+    {#  END    ~~~~~~~~~~    BASE    NAV BAR   ~~~~~~~~~~~~~~ #}
 
-    <!--   MOBILE OR SIDE  NAV BAR  -->
+    <!--  START  MENU   !!!!!!!!!!!!!!!!     MOBILE OR SIDE  BAR    !!!!!!!!!!!!!!!!!!!!! -->
     <ul class="sidenav orange-text left" id="mobile">
-        <li><a href="{% url 'sa_plan_app:index' %}" class="black-text right-align"><i class="material-icons left">home</i>صفحه اصلی</a></li>
-        <li><a href="{% url 'login' %}" class="black-text right-align"><i class="material-icons left">person_add</i>ثبت نام / ورود</a></li>
-        <li><a href="{% url 'logout' %}" class="black-text right-align"><i class="material-icons left">arrow_back</i>خروج</a></li>
+        <li><a href="{% url 'sa_plan_app:index' %}" class="black-text right-align"><i
+                class="material-icons left">home</i>صفحه اصلی</a></li>
+        <li><a href="{% url 'login' %}" class="black-text right-align"><i class="material-icons left">person_add</i>ثبت
+            نام / ورود</a></li>
+        <li><a href="{% url 'logout' %}" class="black-text right-align"><i class="material-icons left">arrow_back</i>خروج</a>
+        </li>
 
         <!-- Dropdown Trigger 2 VIP -->
-        <li><a href="#" class="dropdown-trigger orange-text right-align" data-target="dropdown4">بخش ویژه<i
-                class="material-icons right">arrow_drop_down</i></a>
-        </li>
+        {#        <li><a href="#" class="dropdown-trigger orange-text right-align" data-target="dropdown4">بخش ویژه<i#}
+        {#                class="material-icons right">arrow_drop_down</i></a>#}
+        {#        </li>#}
         <!-- Dropdown Trigger 4 observation -->
-        <li><a class="dropdown-trigger orange-text right-align" href="#" data-target="dropdown3">مشاهدات<i class="material-icons left">visibility</i><i
+        <li><a class="dropdown-trigger orange-text right-align" href="#" data-target="dropdown3">مشاهدات<i
+                class="material-icons left">visibility</i><i
                 class="material-icons right">arrow_drop_down</i></a>
         </li>
     </ul>
-    <!--   END    MOBILE OR SIDE  NAV BAR   -->
+    {#  END    ~~~~~~~~~~    MOBILE OR SIDE  NAV BAR   ~~~~~~~~~~~~~~ #}
 
-    <!--    START    SID NAV BAR DROPDOWN   VIP    -->
+    <!--    START    !!!!!!!!!!!!!!!!   SHOW  SID BAR DROPDOWN    !!!!!!!!!!!!!!!!!!!!! -->
     <ul id="dropdown3" class="dropdown-content">
-        <li><a href="{% url 'sa_plan_app:plan' %}">مشاهده طرح ها</a></li>
-        <li><a href="{% url 'sa_plan_app:project' %}">مشاهده پروژه ها</a></li>
-        <li><a href="#">مشاهده زیر پروژه ها</a></li>
-        <li><a href="#">مشاهده فعالیت ها</a></li>
-        <li><a href="{% url 'sa_plan_app:proctors' %}">مشاهده مجریان</a></li>
-        <li><a href="#">مشاهده احکام</a></li>
+        <li><a href="{% url 'sa_plan_app:plan' %}">مشاهده طرح</a></li>
+        <li><a href="{% url 'sa_plan_app:project' %}">مشاهده پروژه</a></li>
+        <li><a href="#">زیر پروژه ها</a></li>
+        <li><a href="#">فعالیت ها</a></li>
+        <li><a href="{% url 'sa_plan_app:proctors' %}">مجریان</a></li>
+        <li><a href="#">احکام</a></li>
         <li class="divider"></li>
-        <li><a href="{% url 'sa_plan_app:index' %}">خروج و بازگشت به صفحه اصلی</a></li>
+        <li><a href="{% url 'sa_plan_app:index' %}">خروج صفحه اصلی</a></li>
     </ul>
-    <ul id="dropdown4" class="dropdown-content light-blue lighten-3">
-        <li><a href="#" class="black-text text-darken-4">ثبت طرح ها</a></li>
-        <li><a href="#" class="black-text text-darken-4">ثبت پروژه ها</a></li>
-        <li><a href="#" class="black-text text-darken-4">ثبت زیر پروژه ها</a></li>
-        <li><a href="#" class="black-text text-darken-4">ثبت فعالیت ها</a></li>
-        <li><a href="#" class="black-text text-darken-4">صدور احکام</a></li>
-        <li class="divider"></li>
-        <li><a href="{% url 'sa_plan_app:index' %}" class="red-text text-darken-4">خروج و بازگشت به صفحه اصلی</a></li>
-    </ul>
-    <!--    END    SID NAV BAR DROPDOWN    -->
+    {#  END    ~~~~~~~~~~    SHOW  SID BAR DROPDOWN   ~~~~~~~~~~~~~~ #}
+
 </header>
+<!--    START    !!!!!!!!!!!!!!!!   VIP  SID BAR DROPDOWN    !!!!!!!!!!!!!!!!!!!!! -->
+{#    <ul id="dropdown4" class="dropdown-content light-blue lighten-3">#}
+{#        <li><a href="#" class="black-text text-darken-4">ثبت طرح</a></li>#}
+{#        <li><a href="#" class="black-text text-darken-4">ثبت پروژه</a></li>#}
+{#        <li><a href="#" class="black-text text-darken-4">ثبت زیر پروژه</a></li>#}
+{#        <li><a href="#" class="black-text text-darken-4">ثبت فعالیت</a></li>#}
+{#        <li><a href="#" class="black-text text-darken-4">صدور حکم</a></li>#}
+{#        <li class="divider"></li>#}
+{#        <li><a href="{% url 'sa_plan_app:index' %}" class="red-text text-darken-4">خروج و بازگشت به صفحه اصلی</a></li>#}
+{#    </ul>#}
+{#  END    ~~~~~~~~~~    VIP  SID BAR DROPDOWN   ~~~~~~~~~~~~~~ #}

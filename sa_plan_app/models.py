@@ -118,13 +118,13 @@ class AttachmentFile(models.Model):
     content_object = GenericForeignKey()
 
     @property
-    def attachment(self, pid):
-        attachment = AttachmentFile.objects.filter(object_id=pid)
-        return attachment
+    def name(self):
+        return self.content_object, self.file.url.split('/')[-1], self.object_name
+        # return '123'
 
     def __str__(self):
-        # return "مستندات {}".format(self.content_object.name)
-        return "مستندات {}".format(self.object_name)
+        # name = (self.content_object.name)
+        return "مستندات {}".format(self.name)
 
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

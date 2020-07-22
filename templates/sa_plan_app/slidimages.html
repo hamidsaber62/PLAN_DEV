@@ -1,0 +1,24 @@
+{% load static %}
+{% load thumbnail %}
+{% if images %}
+    <div class="row col s12">
+        <div class="slider full-width">
+            <ul class="slides">
+                {% for img in images %}
+                    <li>
+                        <img class="responsive-img" src="{{ img.pic.url }}" title="{{ img.name }}"
+                             alt=" تصویر {{ img.name }}">
+                        <div class="caption center-align">
+                            <h3>{{ img.description }}</h3>
+                            <a href="{{ img.link }}">
+                                <h5 class="light grey-text text-lighten-3">{{ img.name }}</h5>
+                            </a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% else %}
+    <h3>هیچ عکسی موجود نیست</h3>
+{% endif %}
