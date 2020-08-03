@@ -23,6 +23,7 @@ from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
+                  path('chat/', include('sa_chat_app.urls')),
                   path('profile/', include('sa_account_app.urls')),
                   path('', include('sa_plan_app.urls')),
                   url(r'^login/$', auth_views.LoginView.as_view(), name='login'),

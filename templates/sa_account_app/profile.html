@@ -1,5 +1,25 @@
+
+{#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
+{#~~~~~~~~~~~~~~~~~~~~~~~~~<START>    With God's help     </START>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
+{#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
+{#-*- coding: utf-8 -*-#}
 {% extends 'base.html' %}
-{% load static %}
+{% load thumbnail %}
 {% block main %}
-<h1 class="center blue red-text">AAAAAAAAAAAAA</h1>
+    <h1 class="center red-text">User Profile</h1>
+    <h3>{{ userprofile.userprofile.id }}</h3>
+    <h3>{{ user.id }}</h3>
+    <h3>{{ user.first_name }}</h3>
+    <h3>{{ user.last_name }}</h3>
+    <h3>{{ user.date_joined }}</h3>
+    <h3>{{ user.last_login }}</h3>
+    <h3 class="red-text">is_active : {{ userprofile.userprofile.user.is_active }}</h3>
+    <h3 class="green-text">is_staff : {{ user.is_staff }}</h3>
+    <h3>{{ userprofile.username }}</h3>
+    <h3>{{ userprofile.userprofile.phone }}</h3>
+    <h3>{{ userprofile.userprofile.user_location }}</h3>
+    <h3>{{ userprofile.userprofile.user_role }}</h3>
+
 {% endblock main %}
+
+

@@ -1,47 +1,46 @@
+{#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
+{#~~~~~~~~~~~~~~~~~~~~~~~~~<START>    With God's help     </START>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
+{#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 {% extends 'base.html' %}
-{% load static %}
+{% block title %}
+    <title>لیست طرح ها</title>
+{% endblock title %}
 {% block main %}
     <div class="container">
-        {% if plan_record %}
+        {% if plan %}
             <h4 class="center">لیست طرح ها</h4>
             <table dir="rtl"
                    class="striped highlight centered responsive-table right-aligned" title="plan list">
                 <thead>
                 <tr>
-                    <th>ردیف طرح</th>
-                    <th>نام مجری</th>
+                    <th>کد طرح</th>
                     <th>عنوان طرح</th>
-                    <th>اعتبار طرح میلیون ریال</th>
-                    <th>تعداد پروژه طرح</th>
+                    <th>نام مجری</th>
+                    <th>اعتبار طرح (میلیون ریال)</th>
+                    <th>تعداد پروژه ها</th>
                     <th>نوع طرح</th>
-                    <th>تاریخ شروع طرح</th>
-                    <th>تاریخ خاتمه طرح</th>
+                    <th>تاریخ شروع</th>
+                    <th>تاریخ خاتمه</th>
                 </tr>
                 </thead>
-                {% for pl in plan_record %}
+                {% for pl in plan %}
                     <tbody>
                     <tr>
                         <td>{{ pl.id }}</td>
+                        {#                    {% url 'sa_plan_app:plan-description' pl.name pl.id %} = {{ pl.get_absolute_url }} -->> get_absolute_url() IS DEF in plan models  #}
+                        <td><a href="{{ pl.get_absolute_url }}">{{ pl.name }}</a></td>
                         {% for proc in proctor %}
                             {% if pl.id == proc.plan.id %}
-
-                                <td><a href="{% url 'sa_plan_app:proctor_description' proc.id %}">{{ proc.name }}</a></td>
-
-                                         {% endif %}
+                                {#   {% url 'sa_plan_app:proctor-description' proc.name %}  { proc.get_absolute_url }}   #}
+                                <td><a href="{{ proc.get_absolute_url }}"
+                                       class="blue-text text-darken-2">{{ proc.name }}</a></td>
+                            {% endif %}
                         {% endfor %}
-                        <td><a href="{% url 'sa_plan_app:plan_description' pl.id %}">{{ pl.name_plan}}</a></td>
-
                         <td>{{ pl.credit }}</td>
                         <td>{{ pl.project_quantity }}</td>
                         <td>{{ pl.type_plan }}</td>
-                        {#                        {% if pl.type == 2 %}#}
-                        {#                            <td>{{ 'غیر انتفاعی' }}</td>#}
-                        {#                        {% elif pl.type == 1 %}#}
-                        {#                            <td>{{ 'انتفاعی' }}</td>#}
-                        {#                        {% endif %}#}
                         <td>{{ pl.start_date }}</td>
                         <td>{{ pl.end_date }}</td>
-
                     </tr>
                     </tbody>
                 {% endfor %}

@@ -1,3 +1,7 @@
+
+{#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
+{#~~~~~~~~~~~~~~~~~~~~~~~~~<START>    With God's help     </START>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
+{#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 {% load static %}
 {% load thumbnail %}
 <div class="row">
@@ -17,12 +21,13 @@
                     <p class="">{{ info.card_content | truncatechars:50 }}</p>
                     <br>
 
-                    <p class="left"><a href="#">اطلاعات تکمیلی</a></p>
+                    <p class="left"><a href="{% url 'sa_plan_app:more-info' info.slug %}">اطلاعات بیشتر</a></p>
 
                 </div>
             </div>
         </div>
     </div>
+
     {#       card horizontal#}
     <div class="hide-on-med-and-up">
         <div class="card small right-align">

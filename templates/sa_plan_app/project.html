@@ -1,12 +1,19 @@
+
+{#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
+{#~~~~~~~~~~~~~~~~~~~~~~~~~<START>    With God's help     </START>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
+{#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 {% extends 'base.html' %}
-{% load static %}
+{% block title %}
+    <title>لیست پروژه{{ project }}</title>
+{% endblock title %}
 {% block main %}
     <div class="container">
-        {% if project_record %}
-                        <h4 class="center">لیست پروژه ها</h4>
+        {% if project %}
+                        <h4 class="center"> شرح {{ project }} </h4>
 
-            <table border="2px" dir="rtl" cellspacing="2" bgcolor="#faebd7"
-                    class="striped highlight centered responsive-table" title="plan list">
+
+            <table dir="rtl" class="striped highlight centered responsive-table right-aligned black-text sa_gard_right" title="Project List">
+
                 <thead>
                 <tr>
                     <th>ردیف پروژه</th>
@@ -18,19 +25,18 @@
                     <th>تاریخ خاتمه پروژه</th>
                 </tr>
                 </thead>
-                {% for pr in project_record %}
-                    <tbody>
+                                <tbody>
                     <tr>
-                        <td>{{ pr.id }}</td>
-                        <td><a href="{% url 'sa_plan_app:plan_description' pr.plan.id %}">{{ pr.plan}}</a></td>
-                        <td>{{ pr.name }}</td>
-                        <td>{{ pr.number }}</td>
-                        <td>{{ pr.credit }}</td>
-                        <td>{{ pr.start_date }}</td>
-                        <td>{{ pr.end_date }}</td>
+                        <td>{{ project.id }}</td>
+                        <td><a href="{% url 'sa_plan_app:plan-description' project.plan.slug project.plan.id %}">{{ project.plan}}</a></td>
+                        <td>{{ project.name }}</td>
+                        <td>{{ project.number }}</td>
+                        <td>{{ project.credit }}</td>
+                        <td>{{ project.start_date }}</td>
+                        <td>{{ project.end_date }}</td>
                     </tr>
                     </tbody>
-                {% endfor %}
+
             </table>
         {% else %}
             <p>NO ACCESS RECORD FOUND!</p>

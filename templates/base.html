@@ -1,5 +1,10 @@
-{% load static %}
+
+{#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
+{#~~~~~~~~~~~~~~~~~~~~~~~~~<START>    With God's help     </START>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
+{#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 <!DOCTYPE html>
+{# -*- coding: utf-8 -*-#}
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -29,19 +34,24 @@
 
 <div class="container">
     {% comment %}
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     {% endcomment %}
     <i class="material-icons">check</i>
     <i class="material-icons">warning</i>
     <i class="material-icons">check</i>
-{{ request.user }}
-    {% block main %} {% endblock %}
+    {{ request.user }}<br>
+
+    {% block main %}
+
+    {% endblock %}
+    <br>
+
 </div>
 
 {% include 'partials/_footer.html' %}
@@ -54,20 +64,20 @@
     <script type="text/javascript">
         {% if messages %}
             {% for message in messages %}
+                {#var toastHTML = '<button class="btn-flat toast-action"><i class="material-icons">check</i>{{ message }}'#}
                 var toastHTML = `
-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} توجه: {% endif %}
-            {{ message }}
              <button class="btn-flat toast-action">
              {% if message.tags == 'success'  %}
-             <i class="material-icons">check</i>
+                <i class="material-icons">check</i>
              {% elif message.tags == 'error' %}
-             <i class="material-icons">error</i>
+                <i class="material-icons">error</i>
              {% else %}
-             <i class="material-icons">warning</i>
+                <i class="material-icons">info_outline</i>
              {% endif %}
              </button>
-              `;
-                M.toast({html: toastHTML, classes: 'rounded', displayLength:6000});
+             {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} توجه: {% endif %}
+            {{ message }} `;
+            M.toast({html: toastHTML, classes: 'rounded', displayLength: 6000});
             {% endfor %}
         {% endif %}
     </script>

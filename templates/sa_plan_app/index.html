@@ -1,16 +1,17 @@
+
+{#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
+{#~~~~~~~~~~~~~~~~~~~~~~~~~<START>    With God's help     </START>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
+{#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 {% extends 'base.html' %}
-{% load thumbnail %}
-{% load static %}
 {% block title %}
     <title>صفخه اصلی</title>
 {% endblock title %}
 {% block main %}
-
     <main>
         <hr>
         <hr>
         <!--    IMAGES   CAROUSEL     -->
-        <div class="card-panel center">
+        <div class="card-panel center sa_gard_left">
             <h3>گالری پروژه ها</h3>
             <hr>
             {% include 'sa_plan_app/slidimages.html' %}
@@ -21,7 +22,7 @@
         <!--      GROUP   CARD     -->
         <hr>
         <hr>
-        <div class="card-panel">
+        <div class="card-panel sa_gard_right">
             <h3 class="center">گروه های فعال در دفتر</h3>
             <hr>
             {% if info_card %}
@@ -39,7 +40,7 @@
         <!--  END     GROUP   CARD   -->
 
         <!--   PROGRAM    CARD        -->
-        <div class="card-panel">
+        <div class="card-panel sa_gard_left">
             <h3 class="center">برنامه ها وفعالیتهای سال جاری</h3>
             <hr>
             {% if info_card %}

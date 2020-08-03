@@ -1,10 +1,12 @@
 
-
+# {#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
+# {#~~~~~~~~~~~~~~~~~~~~~~~~~<START>    With God's help     </START>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
+# {#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 # Register your models here.
-
 from .models import *
+
 
 # class AuthorAdmin(admin.ModelAdmin):
 #     pass
@@ -26,6 +28,8 @@ from .models import *
 #     extra = 1
 #
 #
+
+
 @admin.register(ImageGallery)
 class ImageGalleryAdmin(admin.ModelAdmin):
     pass
@@ -34,7 +38,7 @@ class ImageGalleryAdmin(admin.ModelAdmin):
 @admin.register(Plan)
 class PlanAdmin(admin.ModelAdmin):
     pass
-    # list_display = ('name', 'organization', 'beneficiary')
+    # list_display = ('name_plan', 'organization', 'beneficiary', 'project_quantity')
     # list_filter = ('name', 'proctor', 'entry_datetime')
     #
     # search_fields = ('proctor__name', 'name', 'entry_datetime')
@@ -109,3 +113,6 @@ class AttachmentFileAdmin(admin.ModelAdmin):
 #     pass
 
 
+# @admin.register(MoreInfo)
+# class MoreInfoAdmin(admin.ModelAdmin):
+#     pass

@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'sa_chat_app.apps.SaChatAppConfig',
     'sa_plan_app.apps.SaPlanAppConfig',
     'sorl.thumbnail',
     'social_django',

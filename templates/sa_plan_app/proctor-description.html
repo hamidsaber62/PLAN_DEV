@@ -1,0 +1,36 @@
+
+{#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
+{#~~~~~~~~~~~~~~~~~~~~~~~~~<START>    With God's help     </START>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
+{#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% block title %}
+    <title>مشخصات {{ proctor.name }}</title>
+{% endblock title %}
+{% block main %}
+    {% if proctor %}
+        <h4 class="center">    خلاصه ای از سوابق مجری {{ proctor.plan }} آقای {{ proctor.name }} </h4>
+        <table dir="rtl"
+               class="striped highlight centered responsive-table right-aligned teal " title="plan list">
+            <thead>
+            <tr>
+                <th>توضیحات</th>
+                <th>تصویر</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{ proctor.description }}</td>
+                <td>
+                    {% thumbnail proctor.pic "150x150" crop="center" as im %}
+                        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"
+                             alt=" تصویر آقای {{ proctor.name }}">
+                    {% endthumbnail %}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    {% else %}
+        <p>NO ACCESS RECORD FOUND!</p>
+    {% endif %}
+{% endblock main %}
