@@ -1,34 +1,36 @@
-
 {#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 {#~~~~~~~~~~~~~~~~~~~~~~~~~<START>    With God's help     </START>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 {#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 {% load static %}
 {% load thumbnail %}
 {% if gallery %}
-    <div class="row col s12">
-        <div class="slider full-width">
-            <ul class="slides">
-                {% for img in gallery %}
-                    <li>
-                        <img class="responsive-img" src="{{ img.pic.url }}" title="{{ img.name }}"
-                             alt=" تصویر {{ img.name }}">
-                        <div class="caption center-align">
-                            <h3>{{ img.description }}</h3>
-                            {% if request.user.is_authenticated %}
-                                <a href="{{ img.link }}">
-                                    <h5 class="light yellow-text text-darken-1">{{ img.name }}</h5>
-                                </a>
-                            {% else %}
-                                <a class="yellow-text text-darken-1" href="#"
-                                   onclick="M.toast({html: '<h6>برای مشاهده تصاویر بیشتر و توضیحات وارد سایت شوید</h6>' , classes:('rounded teal'), displayLength:5000,})">!{{ img.name }}</a>
-                                {#                                completeCallback: function(){alert('Your toast was dismissed')}#}
-                            {% endif %}
-                        </div>
-                    </li>
-                {% endfor %}
-            </ul>
+    <main>
+
+        <div class="row col s12">
+            <div class="slider full-width">
+                <ul class="slides">
+                    {% for img in gallery %}
+                        <li>
+                            <img class="responsive-img" src="{{ img.pic.url }}" title="{{ img.name }}"
+                                 alt=" تصویر {{ img.name }}">
+                            <div class="caption center-align">
+                                <h3>{{ img.description }}</h3>
+                                {% if request.user.is_authenticated %}
+                                    <a href="{{ img.link }}">
+                                        <h5 class="light yellow-text text-darken-1">{{ img.name }}</h5>
+                                    </a>
+                                {% else %}
+                                    <a class="yellow-text text-darken-1" href="#"
+                                       onclick="M.toast({html: '<h6>برای مشاهده تصاویر بیشتر و توضیحات وارد سایت شوید</h6>' , classes:('rounded teal'), displayLength:5000,})">!{{ img.name }}</a>
+                                    {#                                completeCallback: function(){alert('Your toast was dismissed')}#}
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
-    </div>
-{% else %}
-    <h3>هیچ عکسی موجود نیست</h3>
+        {% else %}
+        <h3>هیچ عکسی موجود نیست</h3>
+    </main>
 {% endif %}

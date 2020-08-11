@@ -4,13 +4,13 @@
 {#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 {% load static %}
 {% load thumbnail %}
-<div class="row">
+    <div class="row">
     <div class="hide-on-small-only">
         <div class="card horizontal">
             <div class="card-image waves-effect waves-block waves-light">
                 {% thumbnail info.card_pic "400x220" crop="center" as im %}
                     <a href="{{ info.link_card_pic }}"><img src="{{ im.url }}" width="{{ im.width }}"
-                                                            height="{{ im.height }}"
+                                                            height="{{ im.height }}" title="{{ info.name }}"
                                                             alt=" تصویر{{ info.name }}" class="responsive-img"></a>
                 {% endthumbnail %}
             </div>

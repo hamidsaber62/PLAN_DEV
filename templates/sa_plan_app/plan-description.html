@@ -7,73 +7,77 @@
     <title>جزییات {{ plan_des.name }}</title>
 {% endblock title %}
 {% block main %}
-    {% if plan_des %}
-        <h4 class="center">صفحه توضیحات {{ plan_des.name}} </h4>
-        <h4 class="center">آِی دی{{ plan_des.id}} </h4>
-        <h4 class="center">تعداد پروژه ها بصورت عدد اینتیجر : {{ plan_des.project_quantity }}</h4>
-        <h4 class="center">تعداد پروژه ها بصورت عدد استرینگ : {{ plan_des.project_quantity | slugify }}</h4>
-    {% endif %}
-    {{ project }}
-    <ul class="tabs tabs-fixed-width sa_gard_left z-depth-1 black-text">
-        <li class="tab disabled"><a href="#bill_tab" class="orange-text text-darken-2">احکام صادره</a></li>
-        <li class="tab"><a href="#activity_tab">فعالیتها</a></li>
+    <main>
+        {% if plan_des %}
+            <h4 class="center">صفحه توضیحات {{ plan_des.name }} </h4>
+            <h4 class="center">آِی دی{{ plan_des.id }} </h4>
+            <h4 class="center">تعداد پروژه ها بصورت عدد اینتیجر : {{ plan_des.project_quantity }}</h4>
+            <h4 class="center">تعداد پروژه ها بصورت عدد استرینگ : {{ plan_des.project_quantity | slugify }}</h4>
+        {% endif %}
+        {{ project }}
+        <ul class="tabs tabs-fixed-width sa_gard_left z-depth-1 black-text">
+            <li class="tab disabled"><a href="#bill_tab" class="orange-text text-darken-2">احکام صادره</a></li>
+            <li class="tab"><a href="#activity_tab">فعالیتها</a></li>
 
-        <li class="tab"><a href="#attach_tab">ضمائم و پیوستها</a></li>
-        <li class="tab"><a href="#subprj_des_tab">جزییات زیر پروژه ها</a></li>
-        <li class="tab"><a href="#project_des_tab">جزییات پروژه ها</a></li>
-        <li class="tab"><a href="#plan_des_tab" class="active">شرح طرح</a></li>
-    </ul>
-    <div id="plan_des_tab" class="col s12"><p>طرح</p>
-        <table dir="rtl"
-               class="striped highlight centered responsive-table right-aligned black-text sa_gard_right"
-               title="plan list">
-            <thead>
-            <tr>
-                <th>{{ plan_des.name }}</th>
-                {% with ''|center:plan_des.project_quantity as range %}
-                    {% for _ in range %}
-                        <th class="white-text">عنوان پروژه</th>
+            <li class="tab"><a href="#attach_tab">ضمائم و پیوستها</a></li>
+            <li class="tab"><a href="#subprj_des_tab">جزییات زیر پروژه ها</a></li>
+            <li class="tab"><a href="#project_des_tab">جزییات پروژه ها</a></li>
+            <li class="tab"><a href="#plan_des_tab" class="active">شرح طرح</a></li>
+        </ul>
+        <div id="plan_des_tab" class="col s12"><p>طرح</p>
+            <table dir="rtl"
+                   class="striped highlight centered responsive-table right-aligned black-text sa_gard_right"
+                   title="plan list">
+                <thead>
+                <tr>
+                    <th>{{ plan_des.name }}</th>
+                    {% with ''|center:plan_des.project_quantity as range %}
+                        {% for _ in range %}
+                            <th class="white-text">عنوان پروژه</th>
+                        {% endfor %}
+                    {% endwith %}
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td>{{ plan_des.description }}</td>
+                    {% with ''|center:plan_des.project_quantity as range %}
+                        {% for prj in project %}
+                            <td><a href="{% url 'sa_plan_app:project' prj.slug %}"
+                                   class="orange-text text-accent-1">{{ prj.name }}</a></td>
+                        {% endfor %}
+                    {% endwith %}
+
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div id="project_des_tab" class="col s12"><h3 class="blue-text center">جزییات پروژه ها</h3></div>
+        <div id="subprj_des_tab" class="col s12"><h3 class="teal-text center">جزییات زیر پروژه ها</h3></div>
+        <div id="activity_tab" class="col s12"><h3 class="red-text center">فعالیتها</h3></div>
+        <div id="attach_tab">
+            {% if attachment %}
+                <div class="row">
+                    {% for attach in attachment %}
+                        <div class="col s3">
+                            <div class="card-panel {{ attach.color }} flow-text">
+                                <a href="{{ attach.file.url }}"> <span
+                                        class="attach-file black-text">{{ attach.name.1 | truncatechars:22 }}</span></a>
+                            </div>
+                        </div>
                     {% endfor %}
-                {% endwith %}
-            </tr>
-            </thead>
-
-            <tbody>
-            <tr>
-                <td>{{ plan_des.description }}</td>
-                {% with ''|center:plan_des.project_quantity as range %}
-                    {% for prj in project %}
-                        <td><a href="{% url 'sa_plan_app:project' prj.slug %}" class="orange-text text-accent-1">{{ prj.name }}</a></td>
-                    {% endfor %}
-                {% endwith %}
-
-            </tr>
-            </tbody>
-        </table>
-
-    </div>
-    <div id="project_des_tab" class="col s12"><h3 class="blue-text center">جزییات پروژه ها</h3></div>
-    <div id="subprj_des_tab" class="col s12"><h3 class="teal-text center">جزییات زیر پروژه ها</h3></div>
-    <div id="activity_tab" class="col s12"><h3 class="red-text center">فعالیتها</h3></div>
-    <div id="attach_tab">
-        {% if attachment %}
-            <div class="row">
-            {% for attach in attachment %}
-                <div class="col s3">
-                    <div class="card-panel {{ attach.color }} flow-text">
-                        <a href="{{ attach.file.url }}"> <span
-                                class="attach-file black-text">{{ attach.name.1 | truncatechars:22 }}</span></a>
+                </div>
+            {% else %}
+                <div class="row">
+                    <div class="col offset-s4">
+                        <div class="card-panel blue-grey flow-text center"><h5>تاکنون سندی ضمیمه نشده است</h5></div>
                     </div>
                 </div>
-            {% endfor %}
-        {% else %}
-            <div class="row">
-                <div class="col offset-s4">
-                    <div class="card-panel blue-grey flow-text center"><h5>تاکنون سندی ضمیمه نشده است</h5></div>
-                </div>
-            </div>
-        {% endif %}
+            {% endif %}
         </div>
-    </div>
-    <div id="bill_tab" class="col s12"><h3 class="red-text center">احکام صادره</h3></div>
+        </div>
+        <div id="bill_tab" class="col s12"><h3 class="red-text center">احکام صادره</h3></div>
+    </main>
 {% endblock main %}

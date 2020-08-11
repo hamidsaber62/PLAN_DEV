@@ -1,25 +1,125 @@
-
 {#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 {#~~~~~~~~~~~~~~~~~~~~~~~~~<START>    With God's help     </START>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 {#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 {#-*- coding: utf-8 -*-#}
-{% extends 'base.html' %}
+{% load static %}
 {% load thumbnail %}
-{% block main %}
-    <h1 class="center red-text">User Profile</h1>
-    <h3>{{ userprofile.userprofile.id }}</h3>
-    <h3>{{ user.id }}</h3>
-    <h3>{{ user.first_name }}</h3>
-    <h3>{{ user.last_name }}</h3>
-    <h3>{{ user.date_joined }}</h3>
-    <h3>{{ user.last_login }}</h3>
-    <h3 class="red-text">is_active : {{ userprofile.userprofile.user.is_active }}</h3>
-    <h3 class="green-text">is_staff : {{ user.is_staff }}</h3>
-    <h3>{{ userprofile.username }}</h3>
-    <h3>{{ userprofile.userprofile.phone }}</h3>
-    <h3>{{ userprofile.userprofile.user_location }}</h3>
-    <h3>{{ userprofile.userprofile.user_role }}</h3>
+<div class="section">
 
-{% endblock main %}
+    <!--  START  MENU   !!!!!!!!!!!!!!!!     MOBILE OR SIDE  BAR    !!!!!!!!!!!!!!!!!!!!! -->
+        <!--  START IMAGE  MENU   !!!!!!!!!!!!!!!!     IMAGE  MENU    !!!!!!!!!!!!!!!!!!!!! -->
+    <ul id="slide-out" class="sidenav sidenav-fixed">
+        <li>
+            <a href="{% url 'sa_plan_app:index' %}" class="orange-text flow-text">خانه<i
+                class="material-icons right">home</i></a>
+        </li>
+        {% if request.user.is_authenticated %}
+            <li>
+                <div class="user-view">
+                    <div class="background">
+                        <img src="{% static 'images/gallery-image-3.jpg' %}">
+                    </div>
+                    <a href="#user"><img class="circle" src="{% static 'images/personal/saber_1.jpg' %}"></a>
+
+                    <a href="#" class="red-text right-align"><i
+                            class="material-icons flow-text">person</i>گرامی {{ request.user.last_name }}سلام</a>
+
+                    <a href="#" class="blue-text email right-align flow-text"><i
+                            class="material-icons">local_post_office</i>hamidrezasaber@gmail.com</a>
+                    <a href="{% url 'logout' %}" class="white-text"><h6><i
+                            class="material-icons left">highlight_off</i>خروج</h6></a>
+                    <br>
+                </div>
+                {#            <br>#}
+            </li>
+
+            <!--  END IMAGE  MENU   !!!!!!!!!!!!!!!!     IMAGE  MENU    !!!!!!!!!!!!!!!!!!!!! -->
+
+            <!--  START BASE  MENU   !!!!!!!!!!!!!!!!     BASE  MENU    !!!!!!!!!!!!!!!!!!!!! -->
+
+            <li>
+                <a class="dropdown-trigger black-text" href="#" data-target="dropdown2">مشاهدات<i
+                        class="material-icons right">arrow_drop_down</i><i
+                        class="material-icons left">visibility</i></a>
+            </li>
+
+            <ul class="collapsible expandable">
+                <li>
+                    <div class="collapsible-header">مشاهدات<i
+                            class="material-icons right">arrow_drop_down</i><i
+                            class="material-icons left">visibility</i></div>
+                    <div class="collapsible-body"><a href="{% url 'sa_plan_app:plan' %}">طرح</a></div>
+                    <div class="collapsible-body"><a href="{% url 'sa_chat_app:chat' %}" class="black-text">گفتگو با
+                        مدیر سایت</a></div>
+                    <div class="collapsible-body"><a href="#">زیر پروژه ها</a></div>
+                    <div class="collapsible-body"><a href="#">فعالیت ها</a></div>
+                    <div class="collapsible-body"><a href="#">احکام صادره</a></div>
+                    <div class="collapsible-body"></div>
+                </li>
+                <li>
+                    <div class="collapsible-header">Rezerv</div>
+                    <div class="collapsible-body">rez1</div>
+                    <div class="collapsible-body">rez2</div>
+                    <div class="collapsible-body">rez3</div>
+                </li>
+
+            </ul>
+
+            <li class="divider"></li>
+
+            <li><a class="dropdown-trigger black-text right-align" href="#" data-target="dropdown1">بخش ویژه<i
+                    class="material-icons right">arrow_drop_down</i></a>
+            </li>
+
+            <li class="divider"></li>
+
+            <li><h6 class="red-text center-align">{{ userprofile.userprofile.id }}</h6></li>
+            <li><h6 class="red-text right-align">{{ user.id }}</h6></li>
+            <li><h6 class="black-text right-align">{{ user.first_name }}</h6></li>
+            <li><h6 class="red-text right-align">{{ user.last_name }}</h6></li>
+            <li><h6 class="orange-text right-align">{{ user.date_joined }}</h6></li>
+            <li><h6 class="red-text right-align">{{ user.last_login }}</h6></li>
+            <li><h6 class="red-text right-align">is_active : {{ userprofile.userprofile.user.is_active }}</h6></li>
+            <li><h6 class="green-text right-align">is_staff : {{ user.is_staff }}</h6></li>
+            <li><h6 class="red-text right-align">{{ userprofile.username }}</h6></li>
+            <li><h6 class="red-text right-align">{{ userprofile.userprofile.phone }}</h6></li>
+            <li><h6 class="red-text right-align">{{ userprofile.userprofile.user_location }}</h6></li>
+            <li><h6 class="red-text right-align">{{ userprofile.userprofile.user_role }}</h6></li>
+        {% else %}
+            <!-- BASE  MENU  VIP   MODAL Trigger  -->
+            <li><a class="waves-effect waves-light modal-trigger" href="#modal1">بخش ویژه<i
+                    class="material-icons right">arrow_drop_down</i></a>
+            </li>
+            <li><a class="waves-effect waves-light modal-trigger" href="#modal1">مشاهدات<i
+                    class="material-icons right">arrow_drop_down</i><i
+                    class="material-icons left">visibility</i></a>
+            </li>
+            <li><a href="{% url 'login' %}" class="">ثبت نام / ورود<i class="material-icons right">person_add</i></a>
+            </li>
+        {% endif %}
+    </ul>
 
 
+    <!--    START   !!!!!!!!!!!!!!!!  VIP   Dropdown Structure   BASE PAGE DROPDOWN    !!!!!!!!!!!!!!!!!!!!! -->
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a href="#">ثبت طرح</a></li>
+        <li><a href="#">ثبت پروژه</a></li>
+        <li><a href="#">ثبت زیر پروژه</a></li>
+        <li><a href="#">ثبت فعالیت</a></li>
+        <li><a href="#">صدور حکم</a></li>
+        <li class="divider"></li>
+        <li><a href="{% url 'sa_plan_app:index' %}">خروج صفحه اصلی</a></li>
+    </ul>
+    {#      END     ~~~~~~~~~~    VIP  DROPDOWN   BASE PAGE DROPDOWN   ~~~~~~~~~~~~~~ #}
+    <!--    START   !!!!!!!!!!!!!!!!     SHOW  DROPDOWN   BASE PAGE DROPDOWN    !!!!!!!!!!!!!!!!!!!!! -->
+    <ul id="dropdown2" class="dropdown-content">
+        <li class="teal"><a href="{% url 'sa_plan_app:plan' %}" class="black-text">طرح های ثبت شده</a></li>
+        <li class="teal"><a href="{% url 'sa_chat_app:chat' %}" class="black-text">گفتگو با مدیر سایت</a></li>
+        <li><a href="#">زیر پروژه ها</a></li>
+        <li><a href="#">فعالیت ها</a></li>
+        <li><a href="#">احکام صادره</a></li>
+        <li class="divider"></li>
+        <li><a href="{% url 'sa_plan_app:index' %}">خروج و صفحه اصلی</a></li>
+    </ul>
+    {#  END    ~~~~~~~~~~    SHOW  DROPDOWN   BASE PAGE DROPDOWN   ~~~~~~~~~~~~~~ #}
+</div>

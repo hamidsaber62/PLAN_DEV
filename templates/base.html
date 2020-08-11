@@ -16,10 +16,11 @@
         <!--Import Google Icon Font-->
         <!--        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">-->
         <!--    Import materialize AND icon CSS     rel="stylesheet" type="text/css"       -->
-        <link rel="stylesheet" type="text/css" href="{% static 'css/icon.css' %}" media="projection, screen">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/materialize.min.css' %}" media="projection, screen">
+        <link href="{% static 'css/icon.css' %}" rel="stylesheet" type="text/css" media="projection, screen">
+        <link href="{% static 'css/materialize.min.css' %}" rel="stylesheet" type="text/css" media="projection, screen">
+{#        <link href="{% static 'css/materialize.css' %}" rel="stylesheet" type="text/css" media="projection, screen">#}
         <!--    Import my STYLE sheet   -->
-        <link rel="stylesheet" type="text/css" href="{% static 'css/my_style.css' %}">
+        <link href="{% static 'css/my_style.css' %}" rel="stylesheet" type="text/css" >
     {% endblock css %}
 
 
@@ -30,7 +31,9 @@
 
 <body>
 
-{% include 'partials/_navbar.html' %}
+{#{% include 'partials/_navbar.html' %}#}
+{% include 'partials/_topbar.html' %}
+{% include 'sa_account_app/profile.html' %}
 
 <div class="container">
     {% comment %}

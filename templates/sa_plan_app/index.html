@@ -1,10 +1,9 @@
-
 {#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 {#~~~~~~~~~~~~~~~~~~~~~~~~~<START>    With God's help     </START>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 {#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 {% extends 'base.html' %}
 {% block title %}
-    <title>صفخه اصلی</title>
+    <title>صفحه اصلی</title>
 {% endblock title %}
 {% block main %}
     <main>
@@ -17,44 +16,44 @@
             {% include 'sa_plan_app/slidimages.html' %}
         </div>
         <!--    END    IMAGES    CAROUSEL     -->
-{% if request.user.is_authenticated %}
-
-        <!--      GROUP   CARD     -->
-        <hr>
-        <hr>
-        <div class="card-panel sa_gard_right">
-            <h3 class="center">گروه های فعال در دفتر</h3>
+{#            {% include 'sa_account_app/profile.html' %}#}
+        {% if request.user.is_authenticated %}
+            <!--      GROUP   CARD     -->
             <hr>
-            {% if info_card %}
-                {% for info in info_card %}
-                    {% if info.card_type == 1 %}
-                        {% include 'sa_plan_app/cardhorizantal.html' %}
+            <hr>
+            <div class="card-panel sa_gard_right">
+                <h3 class="center">گروه های فعال در دفتر</h3>
+                <hr>
+                {% if info_card %}
+                    {% for info in info_card %}
+                        {% if info.card_type == 1 %}
+                            {% include 'sa_plan_app/cardhorizantal.html' %}
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <h4 class="center red-text flow-text">هیچ اطلاعاتی برای نمایش به ثبت نرسیده است</h4>
                 {% endif %}
-                {% endfor %}
-            {% else %}
-                <h4 class="center red-text flow-text">هیچ اطلاعاتی برای نمایش به ثبت نرسیده است</h4>
-            {% endif %}
-        </div>
-        <hr>
-        <hr>
-        <!--  END     GROUP   CARD   -->
-
-        <!--   PROGRAM    CARD        -->
-        <div class="card-panel sa_gard_left">
-            <h3 class="center">برنامه ها وفعالیتهای سال جاری</h3>
+            </div>
             <hr>
-            {% if info_card %}
-                {% for info in info_card %}
-                    {% if info.card_type == 2 %}
-                        {% include 'sa_plan_app/cardhorizantal.html' %}
-                    {% endif %}
-                {% endfor %}
-            {% else %}
-                <h4 class="center red-text flow-text">هیچ اطلاعاتی برای نمایش به ثبت نرسیده است</h4>
-            {% endif %}
-        </div>
-        <!--  END    PROGRAM    CARD        -->
-    {% endif %}
+            <hr>
+            <!--  END     GROUP   CARD   -->
+
+            <!--   PROGRAM    CARD        -->
+            <div class="card-panel sa_gard_left">
+                <h3 class="center">برنامه ها وفعالیتهای سال جاری</h3>
+                <hr>
+                {% if info_card %}
+                    {% for info in info_card %}
+                        {% if info.card_type == 2 %}
+                            {% include 'sa_plan_app/cardhorizantal.html' %}
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <h4 class="center red-text flow-text">هیچ اطلاعاتی برای نمایش به ثبت نرسیده است</h4>
+                {% endif %}
+            </div>
+            <!--  END    PROGRAM    CARD        -->
+        {% endif %}
         <hr>
     </main>
 {% endblock main %}
