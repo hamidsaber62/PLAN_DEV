@@ -7,11 +7,11 @@
 <div class="section">
 
     <!--  START  MENU   !!!!!!!!!!!!!!!!     MOBILE OR SIDE  BAR    !!!!!!!!!!!!!!!!!!!!! -->
-        <!--  START IMAGE  MENU   !!!!!!!!!!!!!!!!     IMAGE  MENU    !!!!!!!!!!!!!!!!!!!!! -->
+    <!--  START IMAGE  MENU   !!!!!!!!!!!!!!!!     IMAGE  MENU    !!!!!!!!!!!!!!!!!!!!! -->
     <ul id="slide-out" class="sidenav sidenav-fixed">
-        <li>
+        <li class="right-">
             <a href="{% url 'sa_plan_app:index' %}" class="orange-text flow-text">خانه<i
-                class="material-icons right">home</i></a>
+                    class="material-icons right orange-text">home</i></a>
         </li>
         {% if request.user.is_authenticated %}
             <li>
@@ -26,8 +26,14 @@
 
                     <a href="#" class="blue-text email right-align flow-text"><i
                             class="material-icons">local_post_office</i>hamidrezasaber@gmail.com</a>
-                    <a href="{% url 'logout' %}" class="white-text"><h6><i
-                            class="material-icons left">highlight_off</i>خروج</h6></a>
+                    <div class="row valign-wrapper">
+                                            <a href="{% url 'logout' %}" class="white-text">
+             <i class="material-icons red-text col s6 sa-exit">highlight_off</i>
+                                   <h6 class="col s6 sa-exit-txt red-text">خروج</h6>
+                    </a>
+
+                    </div>
+
                     <br>
                 </div>
                 {#            <br>#}
@@ -49,7 +55,7 @@
                             class="material-icons right">arrow_drop_down</i><i
                             class="material-icons left">visibility</i></div>
                     <div class="collapsible-body"><a href="{% url 'sa_plan_app:plan' %}">طرح</a></div>
-                    <div class="collapsible-body"><a href="{% url 'sa_chat_app:chat' %}" class="black-text">گفتگو با
+                    <div class="collapsible-body"><a href="{% url 'sa_chat_app:chat' request.user.id %}" class="black-text">گفتگو با
                         مدیر سایت</a></div>
                     <div class="collapsible-body"><a href="#">زیر پروژه ها</a></div>
                     <div class="collapsible-body"><a href="#">فعالیت ها</a></div>
@@ -87,14 +93,14 @@
             <li><h6 class="red-text right-align">{{ userprofile.userprofile.user_role }}</h6></li>
         {% else %}
             <!-- BASE  MENU  VIP   MODAL Trigger  -->
-            <li><a class="waves-effect waves-light modal-trigger" href="#modal1">بخش ویژه<i
-                    class="material-icons right">arrow_drop_down</i></a>
+            <li><a class="waves-effect waves-light modal-trigger white-text" href="#modal1">بخش ویژه<i
+                    class="material-icons right white-text">arrow_drop_down</i></a>
             </li>
-            <li><a class="waves-effect waves-light modal-trigger" href="#modal1">مشاهدات<i
-                    class="material-icons right">arrow_drop_down</i><i
-                    class="material-icons left">visibility</i></a>
+            <li><a class="waves-effect waves-light modal-trigger white-text" href="#modal1">مشاهدات<i
+                    class="material-icons right white-text">arrow_drop_down</i><i
+                    class="material-icons left white-text">visibility_off</i></a>
             </li>
-            <li><a href="{% url 'login' %}" class="">ثبت نام / ورود<i class="material-icons right">person_add</i></a>
+            <li><a href="{% url 'login' %}" class="white-text">ثبت نام / ورود<i class="material-icons right white-text">person_add</i></a>
             </li>
         {% endif %}
     </ul>
@@ -114,7 +120,7 @@
     <!--    START   !!!!!!!!!!!!!!!!     SHOW  DROPDOWN   BASE PAGE DROPDOWN    !!!!!!!!!!!!!!!!!!!!! -->
     <ul id="dropdown2" class="dropdown-content">
         <li class="teal"><a href="{% url 'sa_plan_app:plan' %}" class="black-text">طرح های ثبت شده</a></li>
-        <li class="teal"><a href="{% url 'sa_chat_app:chat' %}" class="black-text">گفتگو با مدیر سایت</a></li>
+{#        <li class="teal"><a href="{% url 'sa_chat_app:chat' object.id %}" class="black-text">گفتگو با مدیر سایت</a></li>#}
         <li><a href="#">زیر پروژه ها</a></li>
         <li><a href="#">فعالیت ها</a></li>
         <li><a href="#">احکام صادره</a></li>
@@ -122,4 +128,24 @@
         <li><a href="{% url 'sa_plan_app:index' %}">خروج و صفحه اصلی</a></li>
     </ul>
     {#  END    ~~~~~~~~~~    SHOW  DROPDOWN   BASE PAGE DROPDOWN   ~~~~~~~~~~~~~~ #}
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal sa_gard_right">
+        <div class="modal-content right-align  black-text">
+            <h4>بخش ویژه مدیریتی، نظارتی و کارشناسی</h4>
+            <h6>:در صورتیکه کاربر فعال هستید وارد سایت شوید در غیر اینصورت </h6>
+            <p class="center-align"> ثبت نام و سپس از طریق ایمیلی که مدیر سایت ارسال مینماید اعتبار
+                کاربری خود را فعال نمایید </p>
+            <p class="left-align">باتشکر</p>
+        </div>
+        <div class="modal-footer sa_gard_left">
+            <a href="{% url 'sa_plan_app:index' %}"
+               class="modal-close waves-effect waves-green btn-flat orange-text text-accent-1">فقط
+                میشه عکس دید</a>
+            <a href="{% url 'login' %}" class="modal-close waves-effect waves-green btn-flat orange-text text-accent-1">برو
+                برای ثبت
+                نام</a>
+        </div>
+    </div>
+    <!--    END     ~~~~~~~~~~~~~~~~     Modal Structure    ~~~~~~~~~~~~~~~~~~~~~ -->
+
 </div>

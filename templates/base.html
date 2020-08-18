@@ -35,7 +35,6 @@
 {% include 'partials/_topbar.html' %}
 {% include 'sa_account_app/profile.html' %}
 
-<div class="container">
     {% comment %}
         {% if messages %}
             <ul class="messages">
@@ -45,13 +44,12 @@
             </ul>
         {% endif %}
     {% endcomment %}
-    <i class="material-icons">check</i>
-    <i class="material-icons">warning</i>
-    <i class="material-icons">check</i>
-    {{ request.user }}<br>
-
+<div class="container">
+{{ request.user }}
+    <i class="material-icons blue-grey-text-text">check</i>
+    <i class="material-icons yellow-text">warning</i>
+    <i class="material-icons green-text">check</i>
     {% block main %}
-
     {% endblock %}
     <br>
 

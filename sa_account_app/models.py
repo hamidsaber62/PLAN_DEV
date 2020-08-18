@@ -1,4 +1,3 @@
-
 # {#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 # {#~~~~~~~~~~~~~~~~~~~~~~~~~<START>    With God's help     </START>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 # {#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
@@ -10,6 +9,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+# from sa_plan_app.models import picture_path
+
 # for shell
 #     from django.contrib.auth.models import User
 #     from sa_account_app.models import UserProfile
@@ -32,11 +33,20 @@ LOCATION_JOB = (
 )
 
 
+def picture_path(instance, filename):
+    print('instance.filename -->>', filename)
+    return "{0}".format(filename)
+
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, null=True, blank=True)
     location_job = models.PositiveSmallIntegerField(choices=LOCATION_JOB, null=True)
     phone = models.CharField(max_length=15, null=True, blank=True)
+    pic = models.ImageField(upload_to=picture_path,
+                            verbose_name='عکس پروفایل',
+                            help_text='لطفا تصویر مناسبی رااز کامپیوتر تان انتخاب کنید',
+                            null=True, blank=True)
 
     @property
     def user_role(self):

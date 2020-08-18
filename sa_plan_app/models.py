@@ -5,8 +5,8 @@
 # -*- coding: utf-8 -*-
 # import uuid
 from django.db import models
-from django.contrib.auth.models import User
 # Create your models here.
+from django.contrib.auth.models import User
 from django.utils import timezone
 from datetime import datetime
 from django.contrib.contenttypes.fields import GenericRelation
@@ -209,13 +209,13 @@ class Project(models.Model):
                               blank=True, null=True)
     start_date = models.DateField('تاریخ شروع پروژه', blank=True, null=True)
     end_date = models.DateField('تاریخ خاتمه پروژه', blank=True, null=True)
-    entry_datetime = models.DateTimeField('تاریخ و زمان ثبت ', blank=True,
+    entry_datetime = models.DateTimeField('تاریخ و زمان ثبت ', auto_now_add=True, blank=True,
                                           null=True)
     credit = models.IntegerField('اعتبار مصوب پروژه',
                                  help_text='عدد را بدون ممیز اعشاری وارد نمایید(میلیون ریال)',
                                  default=0, blank=True, null=True)
     description = models.TextField('توضیحات ضروری پروژه', null=True)
-    attachment_file = GenericRelation('AttachmentFile')
+    attachment_file = GenericRelation('AttachmentFile', on_delete=models.CASCADE)
     chat = GenericRelation(Chat)
 
     # user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -232,7 +232,7 @@ class Project(models.Model):
 #   TODO: for dict PLAN_NAME create model AND UI_form when insert final data
 class Plan(models.Model):
     objects = None
-    plan = 'طرح'
+    plan = 'طرحی'
     slug = models.SlugField(max_length=100, allow_unicode=True, null=True, blank=True)
     key_plan_name = models.PositiveSmallIntegerField('عنوان طرح', choices=PLAN_NAME,
                                                      help_text='یکی از عناوین از پیش درج شده را انتخاب و ثبت نمایید',
@@ -254,13 +254,13 @@ class Plan(models.Model):
                                            null=True)
     start_date = models.DateField('تاریخ شروع طرح', blank=True, null=True)
     end_date = models.DateField('تاریخ خاتمه طرح', blank=True, null=True)
-    entry_datetime = models.DateTimeField('تاریخ و زمان ثبت ', blank=True,
+    entry_datetime = models.DateTimeField('تاریخ و زمان ثبت ', auto_now_add=True, blank=True,
                                           null=True)
     credit = models.IntegerField('اعتبار مصوب طرح',
                                  help_text='عدد را بدون ممیز اعشاری وارد نمایید(میلیون ریال)',
                                  default=0, blank=True, null=True)
     description = models.TextField('توضیحات ضروری طرح', null=True)
-    attachment_file = GenericRelation('AttachmentFile', null=True)
+    attachment_file = GenericRelation('AttachmentFile', null=True, on_delete=models.CASCADE)
     chat = GenericRelation(Chat)
 
     @property
@@ -345,7 +345,7 @@ class Proctor(models.Model):
     surname = models.PositiveSmallIntegerField('عنوان مجری',
                                                choices=PROCTOR_SURNAME,
                                                null=True)
-    entry_datetime = models.DateTimeField('تاریخ و زمان ثبت ', null=True)
+    entry_datetime = models.DateTimeField('تاریخ و زمان ثبت ', auto_now_add=True, null=True)
     pic = models.ImageField(upload_to=picture_path, verbose_name='عکس پرسنلی',
                             help_text='لطفا تصویر مناسبی رااز کامپیوتر تان انتخاب کنید',
                             null=True, blank=True)

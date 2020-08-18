@@ -68,7 +68,7 @@ class PlanAdmin(admin.ModelAdmin):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('name', 'number')
+    list_display = ('name', 'number', 'id')
 
 
 @admin.register(Proctor)
@@ -91,7 +91,7 @@ class InfoCardAdmin(admin.ModelAdmin):
 
 @admin.register(AttachmentFile)
 class AttachmentFileAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('id', 'file', 'content_type', 'object_id', 'object_name', 'content_object')
 
 
 

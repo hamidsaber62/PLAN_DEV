@@ -9,111 +9,104 @@
 {% endblock title %}
 {% block main %}
     <main>
-        <div class="section">
-            <div class="row">
-                <div class="valign-wrapper">
-                    <div class="col s10 ">
-                        <div class="card-panel ab_gard_right">
-                            <a href="#" class="red-text">
-                                <div class="right-align"><span class="per_arrow_left"> حمیدرضا</span></div>
-                            </a>
-                            <style type="text/css">
-                            </style>
-                            <div class="right-align">
-                                سلام ؛ من راجع به طرح فلان و اعتبار قسمت بهمان سئوالی دارمسلام ؛ من راجع به طرح
-                                فلان
-                                و
-                                اعتبار قسمت بهمان سئوالی دارمسلام ؛ من راجع به طرح فلان و اعتبار قسمت بهمان
-                                سئوالی
-                                دارمسلام ؛ من راجع به طرح فلان و اعتبار قسمت بهمان سئوالی دارمسلام ؛ من راجع به
-                                طرح
-                                فلان
-                                و اعتبار قسمت بهمان سئوالی دارمسلام ؛ من راجع به طرح فلان و اعتبار قسمت بهمان
-                                سئوالی
-                                دارمr. سلام ؛ من راجع به طرح فلان و اعتبار قسمت بهمان سئوالی دارمسلام ؛ من راجع به طرح
-                                فلان
-                                و
-                                اعتبار قسمت بهمان سئوالی دارمسلام ؛ من راجع به طرح فلان و اعتبار قسمت بهمان
-                                سئوالی
-                                دارمسلام ؛ من راجع به طرح فلان و اعتبار قسمت بهمان سئوالی دارمسلام ؛ من راجع به
-                                طرح
-                                فلان
-                                و اعتبار قسمت بهمان سئوالی دارمسلام ؛ من راجع به طرح فلان و اعتبار قسمت بهمان
-                                سئوالی
-                                دارمr. سلام ؛ من راجع به طرح فلان و اعتبار قسمت بهمان سئوالی دارمسلام ؛ من راجع به طرح
-                                فلان
-                                و
-                                اعتبار قسمت بهمان سئوالی دارمسلام ؛ من راجع به طرح فلان و اعتبار قسمت بهمان
-                                سئوالی
-                                دارمسلام ؛ من راجع به طرح فلان و اعتبار قسمت بهمان سئوالی دارمسلام ؛ من راجع به
-                                طرح
-                                فلان
-                                و اعتبار قسمت بهمان سئوالی دارمسلام ؛ من راجع به طرح فلان و اعتبار قسمت بهمان
-                                سئوالی
-                                دارمr. سلام ؛ من راجع به طرح فلان و اعتبار قسمت بهمان سئوالی دارمسلام ؛ من راجع به طرح
-                                فلان
-                                و
-                                اعتبار قسمت بهمان سئوالی دارمسلام ؛ من راجع به طرح فلان و اعتبار قسمت بهمان
-                                سئوالی
-                                دارمسلام ؛ من راجع به طرح فلان و اعتبار قسمت بهمان سئوالی دارمسلام ؛ من راجع به
-                                طرح
-                                فلان
-                                و اعتبار قسمت بهمان سئوالی دارمسلام ؛ من راجع به طرح فلان و اعتبار قسمت بهمان
-                                سئوالی
-                                دارمr.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col s2">
-                        <div class="center">
-                            <div>
-{#                                {% thumbnail  "400x220" crop="center" as im %}#}
-{#                                    <img src="im.url" width="im.width"#}
-{#                                         height="im.height" title="User_Name"#}
-{#                                         alt=" تصویر" class="responsive-img">#}
-{#                                {% endthumbnail %}#}
-                                <img src="../static/images/personal/F_rahmati.jpg" title="User_Name"
-                                     alt=" عکس اپراتور موجود نیست"
+        <!-- Modal Structure -->
+        <div id="reply" class="modal sa_gard_left">
+            <div class="modal-content right-align  black-text">
+                {#            <h4>پاسخ دهید</h4>#}
+                <div class="col s12 input-field rtl">
+                    <textarea id="reply_to" class="materialize-textarea light-green-text"></textarea>
+                    <label for="reply_to" class="right"> پاسخ شما :</label>
+                </div>
+            </div>
+            <div class="modal-footer sa_gard_left">
+                <a href="#"
+                   class="modal-close waves-effect waves-green btn-flat orange-text text-accent-1">
+                    انصراف</a>
+                <a href="#" class="modal-close waves-effect waves-green btn-flat orange-text text-accent-1">
+                    ثبت
+                    پاسخ</a>
+            </div>
+        </div>
+        <!--    END     ~~~~~~~~~~~~~~~~     Modal Structure    ~~~~~~~~~~~~~~~~~~~~~ -->
+                        <h1>{{ chats.all.values }}</h1>
 
-                                     class="circle responsive-img hide-on-small-only" style="border: 4px solid wheat; width: 75px">
+        <div class="section">
+            {% if chats %}
+                {% for chat in chats %}
+                    {% if chat.is_manager %}
+                        <div class="row">
+                            <div class="valign-wrapper">
+{#                                         User Conversation Block#}
+                                <div class="col s10 ">
+                                        <span>
+                                            <a class="left grey-text text-lighten-1 modal-trigger tooltipped"
+                                               data-position="bottom"
+                                               data-tooltip="پاسخ دهید" href="#reply">
+                                                <i class="material-icons sa-reply">reply</i>
+                                            </a>
+                                        </span>
+                                    <div class="card-panel ab_gard_left">
+                                        <a href="#" class="red-text">
+                                            <div class="right-align">
+                                                <span class="per_arrow_left">{{ chat.user }}</span>
+                                            </div>
+                                        </a>
+                                        <div class="right-align">{{ chat.message }}</div>
+                                        <span>{{ chat.jd_create_chat }}</span>
+                                    </div>
+                                </div>
+{#                                   User Imag Block#}
+                                <div class="col s2">
+                                    <div class="center">
+                                        <div>
+                                            <img src="{{ chat.user.userprofile.pic.url }}" title="User_Name"
+                                                 alt=" عکس اپراتور موجود نیست"
+                                                 class="circle responsive-img hide-on-small-only"
+                                                 style="border: 4px solid wheat; width: 75px">
+                                        </div>
+                                        <div>{{ chat.user }}</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div>حمید رضا صابر</div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="valign-wrapper">
-                    <div class="col s2">
-                        <div class="center">
-                            <div>
-                                <img src="../static/images/personal/faridi.jpg" title="User_Name"
-                                     alt=" عکس اپراتور موجود نیست" width="75px"
-                                     class="circle responsive-img hide-on-small-only" style="border: 4px solid wheat; width: 75px">
-                            </div>
-                            <div>مجید اکبر نژاد</div>
-                        </div>
-                    </div>
-                    <div class="col s10 ">
-                        <div class="card-panel ab_gard_right">
-                            <div class="right-align per_arrow_left">: مدیر سیستم</div>
-                            <div class="right-align">
-                                سلام ؛ من راجع به طرح فلان و اعتبار قسمت بهمان سئوالی دارمسلام ؛ من راجع به طرح
-                                فلان
-                                و
-                                اعتبار قسمت بهمان سئوالی دارمسلام ؛ من راجع به طرح فلان و اعتبار قسمت بهمان
-                                سئوالی
-                                دارمسلام ؛ من راجع به طرح فلان و اعتبار قسمت بهمان سئوالی دارمسلام ؛ من راجع به
-                                طرح
-                                فلان
-                                و اعتبار قسمت بهمان سئوالی دارمسلام ؛ من راجع به طرح فلان و اعتبار قسمت بهمان
-                                سئوالی
-                                دارمr.
+                    {% else %}
+                        <div class="row">
+                            <div class="valign-wrapper">
+                                <div class="col s2">
+                                    <div class="center">
+                                        <div>
+                                            <img src="{{ chat.user.userprofile.pic.url }}" title="User_Name"
+                                                 alt=" عکس اپراتور موجود نیست" width="75px"
+                                                 class="circle responsive-img hide-on-small-only"
+                                                 style="border: 4px solid wheat; width: 75px">
+                                        </div>
+                                        <div>{{ chat.user }}</div>
+                                    </div>
+                                </div>
+                                <div class="col s10 ">
+                                        <span>
+                                            <a class="left grey-text text-lighten-1 modal-trigger tooltipped"
+                                               data-position="bottom"
+                                               data-tooltip="پاسخ دهید" href="#reply">
+                                                <i class="material-icons sa-reply">reply</i>
+                                            </a>
+                                        </span>
+                                    <div class="card-panel ab_gard_right">
+                                        <div class="right-align per_arrow_left">{{ chat.user }}</div>
+                                        <div class="right-align">{{ chat.message }}</div>
+                                        <span>{{ chat.jd_create_chat }}</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
+                    {% endif %}
+                {% endfor %}
+
+            {% else %}
+                <h2>Not Dialog</h2>
+            {% endif %}
+            <br>
+            <div>END DIALOG</div>
         </div>
     </main>
 {% endblock main %}
