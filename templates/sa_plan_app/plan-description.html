@@ -6,8 +6,22 @@
     {#    TODO: edit this page for show good page#}
     <title>جزییات {{ plan_des.name }}</title>
 {% endblock title %}
+{% block breadcrumb %}
+    <div class="navbar-fixed">
+        <nav class="rtl sa_beardcrumbs ">
+            <div class="nav-wrapper  valign-wrapper">
+                <div class="col s12" style="margin-right: 20px; font-size: 5px">
+                    <a href="{% url 'sa_plan_app:index' %}" class="breadcrumb orange-text flow-text">خانه<i
+                    class="material-icons right orange-text">home</i></a>
+                    <a href="{% url 'sa_plan_app:plan' %}" class="breadcrumb">طرح ها</a>
+                    <a href="#!" class="breadcrumb">{{ plan_des.name }}</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+{% endblock breadcrumb %}
+
 {% block main %}
-    <main>
         {% if plan_des %}
             <h4 class="center">صفحه توضیحات {{ plan_des.name }} </h4>
             <h4 class="center">آِی دی{{ plan_des.id }} </h4>
@@ -41,7 +55,7 @@
 
                 <tbody>
                 <tr>
-                    <td>{{ plan_des.description }}</td>
+                    <td>{{ plan_des.description | safe }}</td>
                     {% with ''|center:plan_des.project_quantity as range %}
                         {% for prj in project %}
                             <td><a href="{% url 'sa_plan_app:project' prj.slug %}"
@@ -79,5 +93,4 @@
         </div>
         </div>
         <div id="bill_tab" class="col s12"><h3 class="red-text center">احکام صادره</h3></div>
-    </main>
 {% endblock main %}

@@ -15,10 +15,10 @@
                                                           alt=" تصویر{{ img.name }}" class="responsive-img"></a>
                         {% endthumbnail %}
 
-                        {#                            <img class="responsive-img" src="{{ img.pic.url }}" title="{{ img.name }}"#}
-                        {#                                 alt=" تصویر {{ img.name }}">#}
+{#                                                    <img class="responsive-img" src="{{ img.pic.url }}" title="{{ img.name }}"#}
+{#                                                         alt=" تصویر {{ img.name }}">#}
                         <div class="caption center-align">
-                            <h3>{{ img.description }}</h3>
+                            <h3>{{ img.description | safe }}</h3>
                             {% if request.user.is_authenticated %}
                                 <a href="{{ img.link }}">
                                     <h5 class="light yellow-text text-darken-1">{{ img.name }}</h5>

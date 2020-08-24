@@ -9,7 +9,7 @@ learning
 media
 static
 UNUsed
-manage.py
+py_TEST/manage.py
 my_DB.sqlite3
 migrations
 __pycache__

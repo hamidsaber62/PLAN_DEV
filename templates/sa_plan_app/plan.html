@@ -5,51 +5,66 @@
 {% block title %}
     <title>لیست طرح ها</title>
 {% endblock title %}
-{% block main %}
-    <main>
 
-        <div class="container">
-            {% if plan %}
+{% block breadcrumb %}
+    <div class="navbar-fixed">
+        <nav class="rtl sa_beardcrumbs ">
+            <div class="nav-wrapper  valign-wrapper">
+                <div class="col s12" style="margin-right: 20px; font-size: 5px">
+                    <a href="{% url 'sa_plan_app:index' %}" class="breadcrumb orange-text flow-text">خانه<i
+                            class="material-icons right orange-text">home</i></a>
+                    <a href="{% url 'sa_plan_app:plan' %}" class="breadcrumb">طرح ها</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+{% endblock breadcrumb %}
+
+{% block main %}
                 <h4 class="center">لیست طرح ها</h4>
-                <table dir="rtl"
-                       class="striped highlight centered responsive-table right-aligned" title="plan list">
-                    <thead>
+            <h4 class="center">لیست طرح ها</h4>
+            <h4 class="center">لیست طرح ها</h4>
+            <h4 class="center">لیست طرح ها</h4>
+
+        {% if plan %}
+            <h4 class="center">لیست طرح ها</h4>
+            <table dir="rtl"
+                   class="striped highlight centered responsive-table right-aligned" title="plan list">
+                <thead>
+                <tr>
+                    <th>کد طرح</th>
+                    <th>عنوان طرح</th>
+                    <th>نام مجری</th>
+                    <th>اعتبار طرح (میلیون ریال)</th>
+                    <th>تعداد پروژه ها</th>
+                    <th>نوع طرح</th>
+                    <th>تاریخ شروع</th>
+                    <th>تاریخ خاتمه</th>
+                </tr>
+                </thead>
+                {% for pl in plan %}
+                    <tbody>
                     <tr>
-                        <th>کد طرح</th>
-                        <th>عنوان طرح</th>
-                        <th>نام مجری</th>
-                        <th>اعتبار طرح (میلیون ریال)</th>
-                        <th>تعداد پروژه ها</th>
-                        <th>نوع طرح</th>
-                        <th>تاریخ شروع</th>
-                        <th>تاریخ خاتمه</th>
+                        <td>{{ pl.id }}</td>
+                        {#                    {% url 'sa_plan_app:plan-description' pl.name pl.id %} = {{ pl.get_absolute_url }} -->> get_absolute_url() IS DEF in plan models  #}
+                        <td><a href="{{ pl.get_absolute_url }}">{{ pl.name }}</a></td>
+                        {% for proc in proctor %}
+                            {% if pl.id == proc.plan.id %}
+                                {#   {% url 'sa_plan_app:proctor-description' proc.name %}  { proc.get_absolute_url }}   #}
+                                <td><a href="{{ proc.get_absolute_url }}"
+                                       class="blue-text text-darken-2">{{ proc.name }}</a></td>
+                            {% endif %}
+                        {% endfor %}
+                        <td>{{ pl.credit }}</td>
+                        <td>{{ pl.project_quantity }}</td>
+                        <td>{{ pl.type_plan }}</td>
+                        <td>{{ pl.start_date }}</td>
+                        <td>{{ pl.end_date }}</td>
                     </tr>
-                    </thead>
-                    {% for pl in plan %}
-                        <tbody>
-                        <tr>
-                            <td>{{ pl.id }}</td>
-                            {#                    {% url 'sa_plan_app:plan-description' pl.name pl.id %} = {{ pl.get_absolute_url }} -->> get_absolute_url() IS DEF in plan models  #}
-                            <td><a href="{{ pl.get_absolute_url }}">{{ pl.name }}</a></td>
-                            {% for proc in proctor %}
-                                {% if pl.id == proc.plan.id %}
-                                    {#   {% url 'sa_plan_app:proctor-description' proc.name %}  { proc.get_absolute_url }}   #}
-                                    <td><a href="{{ proc.get_absolute_url }}"
-                                           class="blue-text text-darken-2">{{ proc.name }}</a></td>
-                                {% endif %}
-                            {% endfor %}
-                            <td>{{ pl.credit }}</td>
-                            <td>{{ pl.project_quantity }}</td>
-                            <td>{{ pl.type_plan }}</td>
-                            <td>{{ pl.start_date }}</td>
-                            <td>{{ pl.end_date }}</td>
-                        </tr>
-                        </tbody>
-                    {% endfor %}
-                </table>
-            {% else %}
-                <p>NO ACCESS RECORD FOUND!</p>
-            {% endif %}
-        </div>
-    </main>
+                    </tbody>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>NO ACCESS RECORD FOUND!</p>
+        {% endif %}
 {% endblock main %}

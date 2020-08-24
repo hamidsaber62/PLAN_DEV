@@ -6,46 +6,41 @@
     <title>لیست پروژه{{ project }}</title>
 {% endblock title %}
 {% block main %}
-    <main>
-
-        <div class="container">
-            {% if project %}
-                <h4 class="center"> شرح {{ project }} </h4>
+    {% if project %}
+        <h4 class="center"> شرح {{ project }} </h4>
 
 
-                <table dir="rtl"
-                       class="striped highlight centered responsive-table right-aligned black-text sa_gard_right"
-                       title="Project List">
+        <table dir="rtl"
+               class="striped highlight centered responsive-table right-aligned black-text sa_gard_right"
+               title="Project List">
 
-                    <thead>
-                    <tr>
-                        <th>ردیف پروژه</th>
-                        <th>عنوان طرح</th>
-                        <th>عنوان پروژه</th>
-                        <th>شماره پروژه</th>
-                        <th>)عتبار مصوب پروژه (به میلیون ریال)</th>
-                        <th>تاریخ شروع پروژه</th>
-                        <th>تاریخ خاتمه پروژه</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>{{ project.id }}</td>
-                        <td>
-                            <a href="{% url 'sa_plan_app:plan-description' project.plan.slug project.plan.id %}">{{ project.plan }}</a>
-                        </td>
-                        <td>{{ project.name }}</td>
-                        <td>{{ project.number }}</td>
-                        <td>{{ project.credit }}</td>
-                        <td>{{ project.start_date }}</td>
-                        <td>{{ project.end_date }}</td>
-                    </tr>
-                    </tbody>
+            <thead>
+            <tr>
+                <th>ردیف پروژه</th>
+                <th>عنوان طرح</th>
+                <th>عنوان پروژه</th>
+                <th>شماره پروژه</th>
+                <th>)عتبار مصوب پروژه (به میلیون ریال)</th>
+                <th>تاریخ شروع پروژه</th>
+                <th>تاریخ خاتمه پروژه</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{ project.id }}</td>
+                <td>
+                    <a href="{% url 'sa_plan_app:plan-description' project.plan.slug project.plan.id %}">{{ project.plan }}</a>
+                </td>
+                <td>{{ project.name }}</td>
+                <td>{{ project.number }}</td>
+                <td>{{ project.credit }}</td>
+                <td>{{ project.start_date }}</td>
+                <td>{{ project.end_date }}</td>
+            </tr>
+            </tbody>
 
-                </table>
-            {% else %}
-                <p>NO ACCESS RECORD FOUND!</p>
-            {% endif %}
-        </div>
-    </main>
+        </table>
+    {% else %}
+        <p>NO ACCESS RECORD FOUND!</p>
+    {% endif %}
 {% endblock main %}

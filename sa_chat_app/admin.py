@@ -10,5 +10,5 @@ from .models import Chat
 @admin.register(Chat)
 class ChatAdmin(admin.ModelAdmin):
     list_display = (
-        'user', 'message', 'content_type', 'object_id', 'content_object', 'create_chat_datetime', 'seen_chat')
+        'user', 'message', 'content_type', 'object_id', 'content_object', 'create_chat_datetime', 'seen')
     # pass

@@ -30,10 +30,13 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'sa_chat_app.apps.SaChatAppConfig',
+    'sa_account_app.apps.SaAccountAppConfig',
     'sa_plan_app.apps.SaPlanAppConfig',
+
+    'ckeditor_uploader',
+    'ckeditor',
     'sorl.thumbnail',
     'social_django',
-    'sa_account_app.apps.SaAccountAppConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -124,14 +127,14 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = BASE_DIR + '/static/'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'plan_site/static')
 ]
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR + '/media/'
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.open_id.OpenIdAuth',
@@ -154,3 +157,5 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'JntojiZErxFHFRytTelqYtp7'
 
 SOCIAL_AUTH_GITHUB_KEY = 'ff6771284d0d34dcd7a1'
 SOCIAL_AUTH_GITHUB_SECRET = 'e5cd8b76c29ec705a2911ab60f6b70cfa06eb5ed'
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'

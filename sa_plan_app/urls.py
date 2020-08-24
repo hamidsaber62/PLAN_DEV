@@ -16,6 +16,7 @@ urlpatterns = [
     # proctor_description
     path('<str:project_slug>--/', views.project, name='project'),
     path('--<str:card_slug>/', views.more_info, name='more-info'),
+    path('change-seen-status/', views.change_seen_status, name='change-seen-status'),
 
     # path('user_register/', views.user_register, name='user_register'),
     # path('user_login/', views.user_login, name='user_login'),

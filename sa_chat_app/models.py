@@ -9,7 +9,7 @@ from sa_account_app.models import UserProfile
 from django.contrib.auth.models import User, Group
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
-import datetime
+from datetime import datetime
 from khayyam import JalaliDatetime, TehranTimezone
 from rtl import rtl
 
@@ -21,15 +21,16 @@ class Chat(models.Model):
     object_id = models.PositiveIntegerField(null=True, blank=True)
     content_object = GenericForeignKey()
     create_chat_datetime = models.DateTimeField(auto_now_add=True, null=True)
-    seen_chat = models.DateTimeField(null=True, blank=True)
+    seen = models.BooleanField(default=False, null=True)
+    seen_datetime = models.DateTimeField(null=True, blank=True)
 
     def jd_create_chat(self):
-        jd_datetime = JalaliDatetime(datetime.datetime(year=self.create_chat_datetime.year,
-                                                       month=self.create_chat_datetime.month,
-                                                       day=self.create_chat_datetime.day,
-                                                       hour=self.create_chat_datetime.hour,
-                                                       minute=self.create_chat_datetime.minute,
-                                                       second=self.create_chat_datetime.second, ))
+        jd_datetime = JalaliDatetime(datetime(year=self.create_chat_datetime.year,
+                                              month=self.create_chat_datetime.month,
+                                              day=self.create_chat_datetime.day,
+                                              hour=self.create_chat_datetime.hour,
+                                              minute=self.create_chat_datetime.minute,
+                                              second=self.create_chat_datetime.second, ))
         year = jd_datetime.year
         month = jd_datetime.month
         day = jd_datetime.day
@@ -38,7 +39,6 @@ class Chat(models.Model):
         second = jd_datetime.second
         # print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', '\n',
         #       JalaliDatetime(year, month, day, hour, minute, second).strftime(' %A %d %B  %Y'))
-
         return JalaliDatetime(year, month, day, hour, minute, second).strftime(" %A %d %B  %Y-  ساعت %H:%M:%S")
 
     def is_manager(self):

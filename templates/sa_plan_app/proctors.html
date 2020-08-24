@@ -7,44 +7,36 @@
     <title>مجریان طرح های تملک دارایی</title>
 {% endblock title %}
 {% block main %}
-    <main>
-
-        {#  striped  dir="rtl" title="لیست مجریان" centered #}
-        {#    <div class="container">#}
-        {#        <h4 class="center">لیست مجریان طرح ها</h4>#}
-        {% if proctors_record %}
-
-            <table dir="rtl" class="responsive-table blue-grey centered">
-                <thead>
+    {% if proctors_record %}
+        <table dir="rtl" class="responsive-table blue-grey centered">
+            <thead>
+            <tr>
+                <th>ردیف</th>
+                <th>عنوان طرح</th>
+                <th>نام مجری</th>
+                <th>عنوان اداری مجری</th>
+                <th>تصویر مجری</th>
+            </tr>
+            </thead>
+            {% for pro in proctors_record %}
+                <tbody>
                 <tr>
-                    <th>ردیف</th>
-                    <th>عنوان طرح</th>
-                    <th>نام مجری</th>
-                    <th>عنوان اداری مجری</th>
-                    <th>تصویر مجری</th>
+                    <td>{{ pro.id }}</td>
+                    <td>{{ pro.plan }}</td>
+                    <td><a href="{% url 'sa_plan_app:proctor_description' pro.id %}"
+                           class="red-text">{{ pro.name }}</a></td>
+                    <td>{{ pro.proctor_surname }}</td>
+                    <td>
+                        {% thumbnail pro.pic "100x100" crop="center" as im %}
+                            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"
+                                 alt=" تصویر آقای {{ pro.name }}">
+                        {% endthumbnail %}
+                    </td>
                 </tr>
-                </thead>
-                {% for pro in proctors_record %}
-                    <tbody>
-                    <tr>
-                        <td>{{ pro.id }}</td>
-                        <td>{{ pro.plan }}</td>
-                        <td><a href="{% url 'sa_plan_app:proctor_description' pro.id %}"
-                               class="red-text">{{ pro.name }}</a></td>
-                        <td>{{ pro.proctor_surname }}</td>
-                        <td>
-                            {% thumbnail pro.pic "100x100" crop="center" as im %}
-                                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"
-                                     alt=" تصویر آقای {{ pro.name }}">
-                            {% endthumbnail %}
-                        </td>
-                    </tr>
-                    </tbody>
-                {% endfor %}
-            </table>
-        {% else %}
-            <p>NO ACCESS RECORD FOUND!</p>
-        {% endif %}
-        {#    </div>#}
-    </main>
+                </tbody>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>NO ACCESS RECORD FOUND!</p>
+    {% endif %}
 {% endblock main %}

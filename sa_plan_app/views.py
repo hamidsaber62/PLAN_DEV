@@ -7,9 +7,11 @@ from django.shortcuts import render
 
 from .models import *
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.urls import reverse
 from django.contrib import messages
+import json
+from sa_chat_app.models import Chat
 
 
 # from .forms import ProctorForm
@@ -91,6 +93,43 @@ def project(request, project_slug):
     ctx = {'project': Project.objects.get(slug=project_slug)}
     return render(request, 'sa_plan_app/project.html', ctx)
 
+
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@login_required
+def change_seen_status(request):
+    # import ipdb
+    # ipdb.set_trace()
+
+    msg_id = request.GET.get('msg_id')
+    if msg_id:
+        try:
+            msg_id = int(msg_id)
+            msg = Chat.objects.filter(id=msg_id)
+            # import ipdb
+            # ipdb.set_trace()
+            if msg:
+                msg_owner_groups = [grp.name for grp in msg[0].user.groups.all()]
+                request_user_groups = [grp.name for grp in request.user.groups.all()]
+                if ('operator' in msg_owner_groups and 'manager' in request_user_groups) or (
+                        'manager' in msg_owner_groups and 'operator' in request_user_groups):
+                    msg = msg[0]
+                    msg.seen = True
+                    msg.save()
+        except ValueError:
+            return HttpResponseBadRequest()
+    response_data = {}
+    # response_data = {'result': 'error', 'message': 'Some error message'}
+    return HttpResponse(json.dumps(response_data), content_type='application/json')
+    #         if msg:
+    #             msg_owner_groups = [gp.name for gp in msg[0].user.groups.all()]
+    #             requested_user_groups = [gp.name for gp in request.user.groups.all()]
+    #             if ('students' in msg_owner_groups and 'operators' in requested_user_groups) or \
+    #                     ('operators' in msg_owner_groups and 'students' in requested_user_groups):
+    #                 msg = msg[0]
+    #                 msg.seen = True
+    #                 msg.save()
+    #     except ValueError:
+    #         return HttpResponseBadRequest()
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # def proctor(request):

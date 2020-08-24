@@ -11,4 +11,4 @@ from .models import *
 
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'role', 'pic')
+    list_display = ('user', 'id', 'role', 'pic')

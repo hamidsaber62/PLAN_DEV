@@ -9,15 +9,15 @@
     <!--  START  MENU   !!!!!!!!!!!!!!!!     MOBILE OR SIDE  BAR    !!!!!!!!!!!!!!!!!!!!! -->
     <!--  START IMAGE  MENU   !!!!!!!!!!!!!!!!     IMAGE  MENU    !!!!!!!!!!!!!!!!!!!!! -->
     <ul id="slide-out" class="sidenav sidenav-fixed">
-        <li class="right-">
-            <a href="{% url 'sa_plan_app:index' %}" class="orange-text flow-text">خانه<i
-                    class="material-icons right orange-text">home</i></a>
-        </li>
+{#        <li class="right-">#}
+{#            <a href="{% url 'sa_plan_app:index' %}" class="orange-text flow-text">خانه<i#}
+{#                    class="material-icons right orange-text">home</i></a>#}
+{#        </li>#}
         {% if request.user.is_authenticated %}
             <li>
                 <div class="user-view">
                     <div class="background">
-                        <img src="{% static 'images/gallery-image-3.jpg' %}">
+                        <img src="{% static 'images/iran/tehran1.jpg' %}">
                     </div>
                     <a href="#user"><img class="circle" src="{% static 'images/personal/saber_1.jpg' %}"></a>
 

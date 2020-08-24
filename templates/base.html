@@ -1,4 +1,3 @@
-
 {#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 {#~~~~~~~~~~~~~~~~~~~~~~~~~<START>    With God's help     </START>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 {#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
@@ -15,12 +14,10 @@
     {% block css %}
         <!--Import Google Icon Font-->
         <!--        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">-->
-        <!--    Import materialize AND icon CSS     rel="stylesheet" type="text/css"       -->
         <link href="{% static 'css/icon.css' %}" rel="stylesheet" type="text/css" media="projection, screen">
+        <link href="{% static 'css/animate.min.css' %}" rel="stylesheet" type="text/css" media="projection, screen">
         <link href="{% static 'css/materialize.min.css' %}" rel="stylesheet" type="text/css" media="projection, screen">
-{#        <link href="{% static 'css/materialize.css' %}" rel="stylesheet" type="text/css" media="projection, screen">#}
-        <!--    Import my STYLE sheet   -->
-        <link href="{% static 'css/my_style.css' %}" rel="stylesheet" type="text/css" >
+        <link href="{% static 'css/my_style.css' %}" rel="stylesheet" type="text/css">
     {% endblock css %}
 
 
@@ -33,34 +30,40 @@
 
 {#{% include 'partials/_navbar.html' %}#}
 {% include 'partials/_topbar.html' %}
-{% include 'sa_account_app/profile.html' %}
+{% block breadcrumb %}
+{#        <div class="navbar-fixed">#}
+{#        <nav class="rtl sa_beardcrumbs">#}
+{#            <div class="nav-wrapper  valign-wrapper">#}
+{#                <div class="col s12" style="margin-right: 20px; font-size: 5px">#}
+{#                    <a href="{% url 'sa_plan_app:index' %}" class="breadcrumb orange-text flow-text">خانه<i#}
+{#                            class="material-icons right orange-text">home</i></a>#}
+{#                    <a href="{% url 'sa_plan_app:plan' %}" class="breadcrumb">طرح ها</a>#}
+{#                </div>#}
+{#            </div>#}
+{#        </nav>#}
+{#        </div>#}
+{% endblock breadcrumb %}
 
-    {% comment %}
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endcomment %}
-<div class="container">
-{{ request.user }}
+{% include 'sa_account_app/profile.html' %}
+<div>
+    {{ request.user }}
     <i class="material-icons blue-grey-text-text">check</i>
     <i class="material-icons yellow-text">warning</i>
     <i class="material-icons green-text">check</i>
-    {% block main %}
-    {% endblock %}
-    <br>
-
 </div>
+<div class="container">
+<main>
+{% block main %}    {% endblock main %}
+</main>
+    <br>
+</div>
+
 
 {% include 'partials/_footer.html' %}
 {% block js %}
     <!--Import js file-->
     <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
     <script src="{% static 'js/materialize.min.js' %}"></script>
-    <!--Import my INIT JS file          google-oauth2       -->
     <script src="{% static 'js/init.js' %}"></script>
     <script type="text/javascript">
         {% if messages %}
@@ -78,7 +81,7 @@
              </button>
              {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} توجه: {% endif %}
             {{ message }} `;
-            M.toast({html: toastHTML, classes: 'rounded', displayLength: 6000});
+                M.toast({html: toastHTML, classes: 'rounded', displayLength: 6000});
             {% endfor %}
         {% endif %}
     </script>

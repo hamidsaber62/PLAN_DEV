@@ -3,110 +3,133 @@
 {#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#}
 {% extends 'base.html' %}
 {% load thumbnail %}
+{% load static %}
 
 {% block title %}
     <title>گفتگو با مدیران</title>
 {% endblock title %}
-{% block main %}
-    <main>
-        <!-- Modal Structure -->
-        <div id="reply" class="modal sa_gard_left">
-            <div class="modal-content right-align  black-text">
-                {#            <h4>پاسخ دهید</h4>#}
-                <div class="col s12 input-field rtl">
-                    <textarea id="reply_to" class="materialize-textarea light-green-text"></textarea>
-                    <label for="reply_to" class="right"> پاسخ شما :</label>
+{% block breadcrumb %}
+    <div class="navbar-fixed">
+        <nav class="rtl sa_beardcrumbs">
+            <div class="nav-wrapper  valign-wrapper">
+                <div class="col s12" style="margin-right: 20px; font-size: 5px">
+                    <a href="{% url 'sa_plan_app:index' %}" class="breadcrumb orange-text flow-text">خانه<i
+                            class="material-icons right orange-text">home</i></a>
+                    <a href="{% url 'sa_chat_app:chat' chats.all.all.first.user.id %}" class="breadcrumb">
+                        {{ chats.all.all.first.user }}</a>
+{#                    <a href="{% url 'sa_chat_app:chat' chats.all.all.first.user.id %}" class="breadcrumb">گفتگو با #}
+{#                        : {{ chats.all.all.first.user }}</a>#}
                 </div>
             </div>
-            <div class="modal-footer sa_gard_left">
-                <a href="#"
-                   class="modal-close waves-effect waves-green btn-flat orange-text text-accent-1">
-                    انصراف</a>
-                <a href="#" class="modal-close waves-effect waves-green btn-flat orange-text text-accent-1">
-                    ثبت
-                    پاسخ</a>
+        </nav>
+    </div>
+{% endblock breadcrumb %}
+{% block main %}
+    <!-- Modal Structure -->
+    <div id="reply" class="modal sa_gard_left">
+        <div class="modal-content right-align  black-text">
+            {#            <h4>پاسخ دهید</h4>#}
+            <div class="col s12 input-field rtl">
+                <textarea id="reply_to" class="materialize-textarea light-green-text"></textarea>
+                <label for="reply_to" class="right"> پاسخ شما :</label>
             </div>
         </div>
-        <!--    END     ~~~~~~~~~~~~~~~~     Modal Structure    ~~~~~~~~~~~~~~~~~~~~~ -->
-                        <h1>{{ chats.all.values }}</h1>
-
-        <div class="section">
-            {% if chats %}
-                {% for chat in chats %}
-                    {% if chat.is_manager %}
-                        <div class="row">
-                            <div class="valign-wrapper">
-{#                                         User Conversation Block#}
-                                <div class="col s10 ">
-                                        <span>
-                                            <a class="left grey-text text-lighten-1 modal-trigger tooltipped"
-                                               data-position="bottom"
-                                               data-tooltip="پاسخ دهید" href="#reply">
-                                                <i class="material-icons sa-reply">reply</i>
-                                            </a>
-                                        </span>
-                                    <div class="card-panel ab_gard_left">
-                                        <a href="#" class="red-text">
-                                            <div class="right-align">
-                                                <span class="per_arrow_left">{{ chat.user }}</span>
-                                            </div>
-                                        </a>
-                                        <div class="right-align">{{ chat.message }}</div>
-                                        <span>{{ chat.jd_create_chat }}</span>
-                                    </div>
-                                </div>
-{#                                   User Imag Block#}
-                                <div class="col s2">
-                                    <div class="center">
-                                        <div>
-                                            <img src="{{ chat.user.userprofile.pic.url }}" title="User_Name"
-                                                 alt=" عکس اپراتور موجود نیست"
-                                                 class="circle responsive-img hide-on-small-only"
-                                                 style="border: 4px solid wheat; width: 75px">
-                                        </div>
-                                        <div>{{ chat.user }}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% else %}
-                        <div class="row">
-                            <div class="valign-wrapper">
-                                <div class="col s2">
-                                    <div class="center">
-                                        <div>
-                                            <img src="{{ chat.user.userprofile.pic.url }}" title="User_Name"
-                                                 alt=" عکس اپراتور موجود نیست" width="75px"
-                                                 class="circle responsive-img hide-on-small-only"
-                                                 style="border: 4px solid wheat; width: 75px">
-                                        </div>
-                                        <div>{{ chat.user }}</div>
-                                    </div>
-                                </div>
-                                <div class="col s10 ">
-                                        <span>
-                                            <a class="left grey-text text-lighten-1 modal-trigger tooltipped"
-                                               data-position="bottom"
-                                               data-tooltip="پاسخ دهید" href="#reply">
-                                                <i class="material-icons sa-reply">reply</i>
-                                            </a>
-                                        </span>
-                                    <div class="card-panel ab_gard_right">
-                                        <div class="right-align per_arrow_left">{{ chat.user }}</div>
-                                        <div class="right-align">{{ chat.message }}</div>
-                                        <span>{{ chat.jd_create_chat }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-
-            {% else %}
-                <h2>Not Dialog</h2>
-            {% endif %}
-            <br>
-            <div>END DIALOG</div>
+        <div class="modal-footer sa_gard_left">
+            <a href="#"
+               class="modal-close waves-effect waves-green btn-flat orange-text text-accent-1">
+                انصراف</a>
+            <a href="#" class="modal-close waves-effect waves-green btn-flat orange-text text-accent-1">
+                ثبت
+                پاسخ</a>
         </div>
-    </main>
+    </div>
+    <!--    END     ~~~~~~~~~~~~~~~~     Modal Structure    ~~~~~~~~~~~~~~~~~~~~~ -->
+    <h1>{{ chats.all.values }}</h1>
+
+    <div class="section">
+        {% if chats %}
+            {% for chat in chats %}
+                {% if chat.is_manager %}
+                    <div class="row">
+                        <div class="valign-wrapper">
+                            {#                                         User Conversation Block#}
+                            <div class="col s10 ">
+                                        <span>
+                                            <a class="left grey-text text-lighten-1 modal-trigger tooltipped"
+                                               data-position="bottom"
+                                               data-tooltip="پاسخ دهید" href="#reply">
+                                                <i class="material-icons sa-reply">reply</i>
+                                            </a>
+                                        </span>
+                                <div class="card-panel {% if request.user == chat.user %}teal{% else %}ab_gard_left{% endif %}">
+                                    <a href="#" class="red-text">
+                                        <div class="right-align">
+                                            <span class="per_arrow_left">{{ chat.user }}</span>
+                                        </div>
+                                    </a>
+                                    <div class="right-align chat_message">{{ chat.message }}</div>
+                                    <hr>
+                                    <span class="chat_datetime">{{ chat.jd_create_chat }}</span>
+                                    <i id="msg-{{ chat.id }}" data-msg-num="{{ chat.id }}" data-seen="{{ chat.seen }}"
+                                       class="material-icons right">{% if chat.seen and request.user != chat.user %}
+                                        done_all{% else %}check{% endif %}</i>
+                                </div>
+                            </div>
+                            {#                                   User Imag Block#}
+                            <div class="col s2">
+                                <div class="center">
+                                    <div>
+                                        <img src="{{ chat.user.userprofile.pic.url }}" title="User_Name"
+                                             alt=" عکس اپراتور موجود نیست"
+                                             class="circle responsive-img hide-on-small-only"
+                                             style="border: 4px solid wheat; width: 75px">
+                                    </div>
+                                    <div>{{ chat.user }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="row">
+                        <div class="valign-wrapper">
+                            <div class="col s2">
+                                <div class="center">
+                                    <div>
+                                        <img src="{{ chat.user.userprofile.pic.url }}" title="User_Name"
+                                             alt=" عکس اپراتور موجود نیست" width="75px"
+                                             class="circle responsive-img hide-on-small-only"
+                                             style="border: 4px solid wheat; width: 75px">
+                                    </div>
+                                    <div>{{ chat.user }}</div>
+                                </div>
+                            </div>
+                            <div class="col s10 ">
+                                        <span>
+                                            <a class="left grey-text text-lighten-1 modal-trigger tooltipped"
+                                               data-position="bottom"
+                                               data-tooltip="پاسخ دهید" href="#reply">
+                                                <i class="material-icons sa-reply">reply</i>
+                                            </a>
+                                        </span>
+                                <div class="card-panel {% if request.user == chat.user %}teal{% else %}ab_gard_right{% endif %}">
+                                    <div class="right-align per_arrow_left">{{ chat.user }}</div>
+                                    <div class="right-align chat_message">{{ chat.message }}</div>
+                                    <hr>
+                                    <span class="chat_datetime">{{ chat.jd_create_chat }}</span>
+                                    <i id="msg-{{ chat.id }}" data-msg-num="{{ chat.id }}" data-seen="{{ chat.seen }}"
+                                       class="material-icons right">{% if chat.seen and request.user != chat.user %}
+                                        done_all{% else %}check{% endif %}</i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+        {% else %}
+            <h2>Not Dialog</h2>
+        {% endif %}
+        <br>
+        <div id="seen">END DIALOG</div>
+    </div>
 {% endblock main %}

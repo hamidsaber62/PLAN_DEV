@@ -14,6 +14,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse
 from sa_chat_app.models import Chat
+from ckeditor_uploader.fields import RichTextUploadingField
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@           PROCTOR_SURNAME
@@ -63,7 +64,7 @@ BENEFICIARY = [
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 def picture_path(instance, filename):
     print('instance.name -->>', instance.name, 'filename -->>', filename)
-    return "{0}{1}".format(instance.name, filename)
+    return "picture_path_uploads'/'{0}_{1}".format(instance.name, filename)
 
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -214,7 +215,7 @@ class Project(models.Model):
     credit = models.IntegerField('اعتبار مصوب پروژه',
                                  help_text='عدد را بدون ممیز اعشاری وارد نمایید(میلیون ریال)',
                                  default=0, blank=True, null=True)
-    description = models.TextField('توضیحات ضروری پروژه', null=True)
+    description = RichTextUploadingField('توضیحات ضروری پروژه', null=True)
     attachment_file = GenericRelation('AttachmentFile', on_delete=models.CASCADE)
     chat = GenericRelation(Chat)
 
@@ -259,7 +260,7 @@ class Plan(models.Model):
     credit = models.IntegerField('اعتبار مصوب طرح',
                                  help_text='عدد را بدون ممیز اعشاری وارد نمایید(میلیون ریال)',
                                  default=0, blank=True, null=True)
-    description = models.TextField('توضیحات ضروری طرح', null=True)
+    description = RichTextUploadingField('توضیحات ضروری طرح', null=True)
     attachment_file = GenericRelation('AttachmentFile', null=True, on_delete=models.CASCADE)
     chat = GenericRelation(Chat)
 
@@ -349,7 +350,7 @@ class Proctor(models.Model):
     pic = models.ImageField(upload_to=picture_path, verbose_name='عکس پرسنلی',
                             help_text='لطفا تصویر مناسبی رااز کامپیوتر تان انتخاب کنید',
                             null=True, blank=True)
-    description = models.TextField('توضیحات ضروری مجری', null=True)
+    description = RichTextUploadingField('توضیحات ضروری مجری', null=True)
     chat = GenericRelation(Chat)
 
     @property
