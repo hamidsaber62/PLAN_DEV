@@ -306,17 +306,18 @@ class Plan(models.Model):
         revers_type_plan_dict = {v: k for k, v in dict(PLAN_TYPE).items()}
         self.plan_type = revers_type_plan_dict.get(new_type_plan)
 
+    def save(self, *args, **kwargs):
+        self.slug = self.name.replace(' ', '-')
+        super(Plan, self).save(*args, **kwargs)
+
     def get_absolute_url(self):
-        params = {'plan_slug': self.slug, 'plan_id': self.id}
+        # params = {'plan_slug': self.slug, 'plan_id': self.id}
+        params = {'plan_slug': self.slug}
         return reverse('sa_plan_app:plan-description', kwargs=params)
 
     # def get_absolute_url(self):
     #     params = {'plan_name': self.name, 'plan_id': self.id}
     #     return reverse('sa_plan_app:plan-description', kwargs=params)
-
-    def save(self, *args, **kwargs):
-        self.slug = self.name.replace(' ', '-')
-        super(Plan, self).save(*args, **kwargs)
 
     def __str__(self):
         # name = self.name_plan
@@ -363,6 +364,10 @@ class Proctor(models.Model):
         revers_surname_dict = {v: k for k, v in dict(PROCTOR_SURNAME).items()}
         self.surname = revers_surname_dict.get(new_surname)
 
+    def save(self, *args, **kwargs):
+        self.slug = self.name.replace(' ', '-')
+        super(Proctor, self).save(*args, **kwargs)
+
     def get_absolute_url(self):
         params = {'proctor_slug': self.slug}
         return reverse('sa_plan_app:proctor-description', kwargs=params)
@@ -370,10 +375,6 @@ class Proctor(models.Model):
     # def get_absolute_url(self):
     #     params = {'proctor_name': self.name}
     #     return reverse('sa_plan_app:proctor-description', kwargs=params)
-
-    def save(self, *args, **kwargs):
-        self.slug = self.name.replace(' ', '-')
-        super(Proctor, self).save(*args, **kwargs)
 
     def __str__(self):
         return "مجری {}".format(self.name)

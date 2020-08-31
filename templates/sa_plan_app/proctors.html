@@ -6,6 +6,20 @@
 {% block title %}
     <title>مجریان طرح های تملک دارایی</title>
 {% endblock title %}
+{% block breadcrumb %}
+    <div class="navbar-fixed">
+        <nav class="rtl sa_beardcrumbs ">
+            <div class="nav-wrapper  valign-wrapper">
+                <div class="col s12" style="margin-right: 20px; font-size: 5px">
+                    <a href="{% url 'sa_plan_app:index' %}" class="breadcrumb flow-text">خانه<i
+                            class="material-icons right">home</i></a>
+                    <a href="{% url 'sa_plan_app:plan' %}" class="breadcrumb">طرح ها</a>
+                    <a href="#" class="breadcrumb">مجری : {{ proctor.name }}</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+{% endblock breadcrumb %}
 {% block main %}
     {% if proctors_record %}
         <table dir="rtl" class="responsive-table blue-grey centered">

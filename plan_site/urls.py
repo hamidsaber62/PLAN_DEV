@@ -21,8 +21,8 @@ from django.conf.urls.static import static
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 
-
 urlpatterns = [
+                  url(r'^api-auth/', include('rest_framework.urls')),
                   url(r'^ckeditor/', include('ckeditor_uploader.urls')),
                   path('chat/', include('sa_chat_app.urls')),
                   path('profile/', include('sa_account_app.urls')),

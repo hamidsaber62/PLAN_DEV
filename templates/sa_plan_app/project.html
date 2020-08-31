@@ -5,6 +5,21 @@
 {% block title %}
     <title>لیست پروژه{{ project }}</title>
 {% endblock title %}
+{% block breadcrumb %}
+    <div class="navbar-fixed">
+        <nav class="rtl sa_beardcrumbs ">
+            <div class="nav-wrapper  valign-wrapper">
+                <div class="col s12" style="margin-right: 20px; font-size: 5px">
+                    <a href="{% url 'sa_plan_app:index' %}" class="breadcrumb flow-text">خانه<i
+                            class="material-icons right">home</i></a>
+                    <a href="{% url 'sa_plan_app:plan' %}" class="breadcrumb">طرح ها</a>
+                    <a href="{{ project.plan.get_absolute_url }}" class="breadcrumb">{{ project.plan.name }}</a>
+                    <a href="#" class="breadcrumb">مجری : {{ project.name }}</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+{% endblock breadcrumb %}
 {% block main %}
     {% if project %}
         <h4 class="center"> شرح {{ project }} </h4>

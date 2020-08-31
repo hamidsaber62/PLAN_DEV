@@ -11,8 +11,8 @@
             <nav class="rtl sa_beardcrumbs">
             <div class="nav-wrapper valign-wrapper">
                 <div class="col s12" style="margin-right: 20px; font-size: 5px">
-                    <a href="{% url 'sa_plan_app:index' %}" class="breadcrumb orange-text flow-text">خانه<i
-                            class="material-icons right orange-text">home</i></a>
+                    <a href="{% url 'sa_plan_app:index' %}" class="breadcrumb flow-text">خانه<i
+                            class="material-icons right">home</i></a>
                     {% if request.user.is_authenticated %}
                         <a href="#!" class="breadcrumb"> آقای / خانم : {{ request.user.username }} خوش
                             آمدید </a>
@@ -36,22 +36,6 @@
     <!--    END    IMAGES    CAROUSEL     -->
     {#            {% include 'sa_account_app/profile.html' %}#}
     {% if request.user.is_authenticated %}
-        {#            {% block breadcrumb %}#}
-        {#                <header>#}
-        {#                    <nav class="rtl sa_beardcrumbs ">#}
-        {#                        <div class="nav-wrapper  valign-wrapper">#}
-        {#                            <div class="col s12" style="margin-right: 20px; font-size: 5px">#}
-        {#                                <a href="{% url 'sa_plan_app:index' %}" class="breadcrumb orange-text flow-text">خانه<i#}
-        {#                                        class="material-icons right orange-text">home</i></a>#}
-        {#                                <a href="#!" class="breadcrumb"> آقای / خانم : {{ request.user.username }} خوش#}
-        {#                                    آمدید </a>#}
-        {#                            </div>#}
-        {#                        </div>#}
-        {#                    </nav>#}
-        {#                </header>#}
-        {##}
-        {#            {% endblock breadcrumb %}#}
-
         <!--      GROUP   CARD     -->
         <hr>
         <hr>

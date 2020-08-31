@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'sa_account_app.apps.SaAccountAppConfig',
     'sa_plan_app.apps.SaPlanAppConfig',
 
+    'rest_framework',
     'ckeditor_uploader',
     'ckeditor',
     'sorl.thumbnail',

@@ -38,7 +38,8 @@ def proctor_description(request, proctor_slug):
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # @login_required()
-def plan_description(request, plan_slug, plan_id):
+# def plan_description(request, plan_slug, plan_id):
+def plan_description(request, plan_slug):
     if request.user.is_authenticated:
         """
          برای نمایش نام طرح در آدرس بار دو روش را پیاده کردم اول با سه خط پایین که کامنت شده اند 
@@ -52,14 +53,16 @@ def plan_description(request, plan_slug, plan_id):
         # ctx = pln = {'plan_des': Plan.objects.get(key_plan_name=num_plan_name)}
 """
         # ctx = {'plan_des': Plan.objects.get(key_plan_name=pln1.key_plan_name)}
-        pln1 = Plan.objects.get(id=plan_id)
+        pln1 = Plan.objects.get(slug=plan_slug)
+        # pln1 = Plan.objects.get(id=plan_id)
         # print(pln1, type(pln1), pln1.id, pln1.name, pln1.key_plan_name)
-        ctx = {'plan_des': Plan.objects.get(id=plan_id)}
+        ctx = {'plan_des': pln1}
+        # ctx = {'plan_des': Plan.objects.get(id=plan_id)}
 
-        att = {'attachment': AttachmentFile.objects.filter(object_id=plan_id)}
-        ctx.update(att)
-        poj = {'project': Project.objects.filter(plan=Plan.objects.get(id=plan_id))}
-        ctx.update(poj)
+        # att = {'attachment': AttachmentFile.objects.filter(object_id=plan_id)}
+        # ctx.update(att)
+        # poj = {'project': Project.objects.filter(plan=Plan.objects.get(id=plan_id))}
+        # ctx.update(poj)
         return render(request, 'sa_plan_app/plan-description.html', ctx)
     else:
         messages.warning(request, 'برای مشاهده جزئیات باید قبلا ثبت نام و وارد سایت شده باشید')
